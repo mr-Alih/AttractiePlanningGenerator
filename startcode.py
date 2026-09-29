@@ -51,9 +51,9 @@ dagprogramma = {
         "leeftijd": bezoeker['leeftijd'],
         "lengte": bezoeker['lengte'],
         "gewicht": bezoeker['gewicht'],
-        "voorkeuren_attractietypes": tekst_naar_lijst(bezoeker['voorkeuren_attractitypes']),
-        "lievelingsattracties": tekst_naar_lijst(bezoeker['lievelingsattracties']),
-        "voorkeuren_eten": tekst_naar_lijst(bezoeker['voorkeuren_eten']),
+        "voorkeuren_attractietypes": bezoeker['voorkeuren_attractietypes'].split(','),
+        # "lievelingsattracties": tekst_naar_lijst(bezoeker['lievelingsattracties']),
+        # "voorkeuren_eten": tekst_naar_lijst(bezoeker['voorkeuren_eten']),
         "rekening_houden_met_weer": bool(bezoeker['rekening_houden_met_weer'])
     },
     "weergegevens": {

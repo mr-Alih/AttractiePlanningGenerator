@@ -1,8 +1,21 @@
 {
     "bezoekersgegevens": {
-        "naam": "Piet de Jong"
+        "naam": "Piet de Jong",
+        "verblijfsduur": 600,
+        "leeftijd": 32,
+        "lengte": 190,
+        "gewicht": 105,
+        "voorkeuren_attractietypes": [
+            "Achtbaan",
+            "Simulator",
+            "Water"
+        ],
+        "rekening_houden_met_weer": false
     },
-    "weergegevens": {},
+    "weergegevens": {
+        "temperatuur": 20,
+        "kans_op_regen": 0
+    },
     "voorzieningen": [],
     "totale_duur": 0
 }
