@@ -8,7 +8,7 @@ from database_wrapper import Database
 # Database initialisatie en verbinden
 # -----------------------------------------
 # parameters voor connectie met de database
-db = Database(host="localhost", gebruiker="user", wachtwoord="password", database="attractiepark_casus_a")
+db = Database(host="localhost", gebruiker="root", wachtwoord="test", database="attractiepark_casus_a")
 # altijd verbinding openen om query's uit te voeren
 db.connect()
 
