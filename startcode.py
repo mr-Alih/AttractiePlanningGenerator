@@ -45,16 +45,23 @@ db.close()
 
 # verzamel alle benodigde gegevens in een dictionary
 dagprogramma = {
-    "bezoekersgegevens" : {
-        "naam": bezoeker['naam'] # voorbeeld van hoe je bij een eigenschap komt
-        # STAP 1: vul aan met andere benodigde eigenschappen
+    "bezoekersgegevens": {
+        "naam": bezoeker['naam'],
+        "verblijfsduur": bezoeker['verblijfsduur'],
+        "leeftijd": bezoeker['leeftijd'],
+        "lengte": bezoeker['lengte'],
+        "gewicht": bezoeker['gewicht'],
+        "voorkeuren_attractietypes": tekst_naar_lijst(bezoeker['voorkeuren_attractitypes']),
+        "lievelingsattracties": tekst_naar_lijst(bezoeker['lievelingsattracties']),
+        "voorkeuren_eten": tekst_naar_lijst(bezoeker['voorkeuren_eten']),
+        "rekening_houden_met_weer": bool(bezoeker['rekening_houden_met_weer'])
     },
-    "weergegevens" : {
-        # STAP 4: vul aan met weergegevens
+    "weergegevens": {
+        "temperatuur": 20,
+        "kans_op_regen": 0
     }, 
-    "voorzieningen": [] # STAP 2: hier komt een lijst met alle voorzieningen
-    ,
-    "totale_duur": 0 # STAP 3: aanpassen naar daadwerkelijke totale duur
+    "voorzieningen": [], # STAP 2: Hier gaan we zo attracties/horeca toevoegen
+    "totale_duur": 0
 }
 
 # uiteindelijk schrijven we de dictionary weg naar een JSON-bestand, die kan worden ingelezen door de acceptatieomgeving
