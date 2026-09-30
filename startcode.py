@@ -39,7 +39,7 @@ select_query = "SELECT * FROM voorziening"
 voorzieningen = db.execute_query(select_query)
 
 # print de resultaten van de query op een overzichtelijke manier
-pprint.pp(voorzieningen) 
+# pprint.pp(voorzieningen) 
 
 # print de naam van de eerste voorziening
 print(voorzieningen[0]["naam"])
@@ -68,27 +68,31 @@ dagprogramma = {
     "totale_duur": 0
 }
 
+# dit in een define voor herroep
 # pick een random attractie uit lijst
-random_attractie = random.randint(0, attr)
-gek_attractie = voorzieningen[random_attractie]
-print(gek_attractie)
+def Rattr ():
+    global gek_attractie
+    random_attractie = random.randint(0, attr)
+    gek_attractie = voorzieningen[random_attractie]
+    print(gek_attractie)
 
-# check is waar betekent volgende if anders nieuwe attracit pickken
+Rattr()
 
 # check 1, is leeftijd okay?
-if bezoeker["leeftijd"] > gek_attractie["attractie_min_leeftijd"]:
+if bezoeker["leeftijd"] > gek_attractie["attractie_min_leeftijd"] or gek_attractie["attractie_min_leeftijd"] is not None:
     print("klopt! hij mag", bezoeker["leeftijd"], gek_attractie["attractie_min_leeftijd"])
 else:
     print("nee")
 
+
 # check 2, is lengte okay?
-if bezoeker["lengte"] > gek_attractie["attractie_min_lengte"]:
+if bezoeker["lengte"] > gek_attractie["attractie_min_lengte"] or gek_attractie["attractie_min_lengte"] is not None:
     print("klopt! hij mag")
 else:
     print("nee")
 
 # check 3, is gewicht okay?
-if bezoeker["gewicht"] < gek_attractie["attractie_max_gewicht"] and gek_attractie["attractie_max_gewicht"] is not None:
+if bezoeker["gewicht"] <= gek_attractie["attractie_max_gewicht"] and gek_attractie["attractie_max_gewicht"] is not None:
     print("klopt! hij mag", )
 elif gek_attractie["attractie_max_gewicht"] is None:
     print("klopt! hij mag", )
