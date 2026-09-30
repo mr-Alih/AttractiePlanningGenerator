@@ -26,52 +26,6 @@
     },
     "voorzieningen": [
         {
-            "id": 38,
-            "naam": "Family Train",
-            "type": "attractie",
-            "overdekt": 0,
-            "geschatte_wachttijd": 10,
-            "doorlooptijd": 5,
-            "actief": 1,
-            "attractie_min_lengte": 95,
-            "attractie_max_lengte": null,
-            "attractie_min_leeftijd": 4,
-            "attractie_max_gewicht": 70,
-            "productaanbod": null
-        },
-        {
-            "id": 43,
-            "naam": "Magic Forest",
-            "type": "attractie",
-            "overdekt": 0,
-            "geschatte_wachttijd": 15,
-            "doorlooptijd": 5,
-            "actief": 1,
-            "attractie_min_lengte": 90,
-            "attractie_max_lengte": null,
-            "attractie_min_leeftijd": 6,
-            "attractie_max_gewicht": 70,
-            "productaanbod": null
-        },
-        {
-            "id": 34,
-            "naam": "Pasta House",
-            "type": "horeca",
-            "overdekt": 1,
-            "geschatte_wachttijd": 8,
-            "doorlooptijd": 20,
-            "actief": 1,
-            "attractie_min_lengte": null,
-            "attractie_max_lengte": null,
-            "attractie_min_leeftijd": null,
-            "attractie_max_gewicht": null,
-            "productaanbod": "Pasta"
-        },
-        {
-            "type": "eetpauze",
-            "duur": 15
-        },
-        {
             "id": 4,
             "naam": "Family Fun Ride",
             "type": "attractie",
@@ -86,22 +40,68 @@
             "productaanbod": null
         },
         {
-            "id": 10,
-            "naam": "Adventure Ride",
+            "id": 19,
+            "naam": "Jungle Trek",
             "type": "attractie",
             "overdekt": 0,
             "geschatte_wachttijd": 18,
+            "doorlooptijd": 6,
+            "actief": 1,
+            "attractie_min_lengte": 100,
+            "attractie_max_lengte": null,
+            "attractie_min_leeftijd": 7,
+            "attractie_max_gewicht": 70,
+            "productaanbod": null
+        },
+        {
+            "id": 32,
+            "naam": "Ice Cream Parlor",
+            "type": "horeca",
+            "overdekt": 1,
+            "geschatte_wachttijd": 6,
+            "doorlooptijd": 10,
+            "actief": 1,
+            "attractie_min_lengte": null,
+            "attractie_max_lengte": null,
+            "attractie_min_leeftijd": null,
+            "attractie_max_gewicht": null,
+            "productaanbod": "IJs"
+        },
+        {
+            "type": "eetpauze",
+            "duur": 15
+        },
+        {
+            "id": 15,
+            "naam": "Family Carousel",
+            "type": "attractie",
+            "overdekt": 0,
+            "geschatte_wachttijd": 12,
+            "doorlooptijd": 5,
+            "actief": 1,
+            "attractie_min_lengte": 90,
+            "attractie_max_lengte": null,
+            "attractie_min_leeftijd": 4,
+            "attractie_max_gewicht": 65,
+            "productaanbod": null
+        },
+        {
+            "id": 38,
+            "naam": "Family Train",
+            "type": "attractie",
+            "overdekt": 0,
+            "geschatte_wachttijd": 10,
             "doorlooptijd": 5,
             "actief": 1,
             "attractie_min_lengte": 95,
             "attractie_max_lengte": null,
-            "attractie_min_leeftijd": 6,
-            "attractie_max_gewicht": 75,
+            "attractie_min_leeftijd": 4,
+            "attractie_max_gewicht": 70,
             "productaanbod": null
         },
         {
-            "id": 26,
-            "naam": "Toy Store",
+            "id": 53,
+            "naam": "Electronic Store",
             "type": "winkel",
             "overdekt": 1,
             "geschatte_wachttijd": 5,
@@ -114,5 +114,5 @@
             "productaanbod": "Souvenirs"
         }
     ],
-    "totale_duur": 143
+    "totale_duur": 130
 }
