@@ -1,21 +1,21 @@
 {
     "bezoekersgegevens": {
-        "naam": "Ahmed Bonfaqih",
-        "verblijfsduur": 180,
-        "leeftijd": 8,
-        "lengte": 130,
-        "gewicht": 30,
+        "naam": "Piet de Jong",
+        "verblijfsduur": 600,
+        "leeftijd": 32,
+        "lengte": 190,
+        "gewicht": 105,
         "voorkeuren_attractietypes": [
-            "Familie",
-            "Draaien"
+            "Achtbaan",
+            "Simulator",
+            "Water"
         ],
         "lievelingsattracties": [
-            "Family Train",
-            "Family Fun Ride"
+            "Sky Diver"
         ],
         "voorkeuren_eten": [
-            "Pasta",
             "Patat",
+            "Snoep",
             "IJs"
         ],
         "rekening_houden_met_weer": false

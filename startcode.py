@@ -16,7 +16,7 @@ db.connect()
 # -----------------------------------------
 # Haal de eigenschappen op van een bezoeker
 # -----------------------------------------
-bezoeker_id = 2 # pas id aan om een andere bezoeker te selecteren
+bezoeker_id = 1 # pas id aan om een andere bezoeker te selecteren
 
 
 # SQL-query om alle gegevens van één bezoeker op te halen op basis van het ID.
@@ -55,9 +55,6 @@ for voorziening in voorzieningen:
 
 # print de resultaten van de query op een overzichtelijke manier
 # pprint.pp(voorzieningen) 
-
-# print de naam van de eerste voorziening
-print(voorzieningen[0]["naam"])
 
 # altijd verbinding sluiten met de database als je klaar bent
 db.close()
@@ -98,17 +95,14 @@ def Rattr():
     global gek_attractie
     gek_attractie = random.choice(attracties)
 
-    print(gek_attractie)
-    print("GEKOZEN:", gek_attractie)
-    print("TYPE:", type(gek_attractie))
-    print("KEYS:", gek_attractie.keys())
+    # print(gek_attractie)
 
 Rattr()
 # nu gaan we volgorde check alles met define doen!
 def voegtoe():
-    if not attr_potje:
-        # lijst bestaat. FORCEFALLBACK
-        attr_potje.append(gek_attractie)
+    # lijst bestaat. FORCEFALLBACK
+    attr_potje.append(gek_attractie)
+    print("TOEGEVOEGD:", gek_attractie["naam"])
 
 
 # check 1, is leeftijd okay?
@@ -117,10 +111,10 @@ def check1():
         gek_attractie["attractie_min_leeftijd"] is None
         or bezoeker["leeftijd"] >= gek_attractie["attractie_min_leeftijd"]
     ):
-        print("klopt! hij mag", bezoeker["leeftijd"], gek_attractie["attractie_min_leeftijd"])
+        # print("klopt! hij mag", bezoeker["leeftijd"], gek_attractie["attractie_min_leeftijd"])
         check2()
     else:
-        print("nee")
+        # print("nee")
         Rattr()
         check1()
 
@@ -131,10 +125,12 @@ def check2():
         gek_attractie["attractie_min_lengte"] is None
         or bezoeker["lengte"] >= gek_attractie["attractie_min_lengte"] 
     ):
-        print("klopt! hij mag")
+        # print("klopt! hij mag")
         check3()
     else:
-        print("nee")
+        # print("nee")
+        Rattr()
+        check1()
 
 # check 3, is gewicht okay?
 def check3():
@@ -142,10 +138,12 @@ def check3():
         gek_attractie["attractie_max_gewicht"] is None
         or bezoeker["gewicht"] <= gek_attractie["attractie_max_gewicht"] 
     ):
-        print("klopt! hij mag", )
+        # print("klopt! hij mag", )
         check4()
     else:
-        print("nee",bezoeker["gewicht"], gek_attractie["attractie_max_gewicht"])
+        # print("nee",bezoeker["gewicht"], gek_attractie["attractie_max_gewicht"])
+        Rattr()
+        check1()
 
 # bekijk het voorwaarde van regenen. dit past toe op check5
 def check4():
@@ -155,10 +153,10 @@ def check4():
     kans_op_regen = dagprogramma["weergegevens"]["kans_op_regen"]
 
     if temperatuur >= 15 and kans_op_regen == False:
-        print("jep, het gaat niet regenen")
+        # print("jep, het gaat niet regenen")
         weervoorwaarde = "buiten"
     else:
-        print("nee, gaat regenen dus binnenattracties")
+        # print("nee, gaat regenen dus binnenattracties")
         weervoorwaarde = "binnen"
 
     check5()
@@ -167,21 +165,21 @@ def check4():
 def check5():
     if weervoorwaarde == "binnen":
         if gek_attractie["overdekt"] == 1:
-            print("Ja, deze attractie past bij het weer")
+            # print("Ja, deze attractie past bij het weer")
             check6()
         else:
-            print("Nee, deze attractie is buiten")
+            # print("Nee, deze attractie is buiten")
             Rattr()
             check1()
     else:
-        print("geen slecht weer alles mag!")
+        # print("geen slecht weer alles mag!")
         check6()
 
 # lievelingsattractie moet 2 maal
 def check6():
     # nieuw systeem over lievelingsattractie. moet 2 maal (RETURN)
     if gek_attractie["naam"] in dagprogramma["bezoekersgegevens"]["lievelingsattracties"]:
-        print("Dit is een lievelingsattractie!")
+        # print("Dit is een lievelingsattractie!")
         check7(True)
 
     else:
@@ -227,18 +225,20 @@ def check7(lievelings=False):
                     + te_verwijderen["doorlooptijd"]
                 )
                 duurover += vrijgekomen_tijd
-                print("Verwijderd:", te_verwijderen["naam"])
-                print("Nieuwe resterende tijd:", duurover)
+                # print("Verwijderd:", te_verwijderen["naam"])
+                # print("Nieuwe resterende tijd:", duurover)
                 # Nu opnieuw proberen
                 check7(lievelings=True)
             else:
-                print("Geen niet-lievelingsattractie meer om te verwijderen.")
+                # print("Geen niet-lievelingsattractie meer om te verwijderen.")
+                print(" ")
         else:
             genereer()
         
 
 # geneer
 def genereer():
+    # print(attr_potje)
     return()
 
 check1()
