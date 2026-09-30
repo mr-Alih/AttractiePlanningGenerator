@@ -18,8 +18,6 @@ db.connect()
 # -----------------------------------------
 bezoeker_id = 1 # pas id aan om een andere bezoeker te selecteren
 
-# aantal attracties
-attr = 55
 
 # SQL-query om alle gegevens van één bezoeker op te halen op basis van het ID.
 select_query = f"SELECT * FROM bezoeker WHERE id = {bezoeker_id}"
@@ -72,32 +70,71 @@ dagprogramma = {
 # pick een random attractie uit lijst
 def Rattr ():
     global gek_attractie
-    random_attractie = random.randint(0, attr)
+    random_attractie = random.randint(0, len(voorzieningen) - 1)
     gek_attractie = voorzieningen[random_attractie]
     print(gek_attractie)
 
 Rattr()
+# nu gaan we volgorde check alles met define doen!
 
 # check 1, is leeftijd okay?
-if bezoeker["leeftijd"] > gek_attractie["attractie_min_leeftijd"] or gek_attractie["attractie_min_leeftijd"] is not None:
-    print("klopt! hij mag", bezoeker["leeftijd"], gek_attractie["attractie_min_leeftijd"])
-else:
-    print("nee")
+def check1():
+    if (
+        gek_attractie["attractie_min_leeftijd"] is None
+        or bezoeker["leeftijd"] >= gek_attractie["attractie_min_leeftijd"]
+    ):
+        print("klopt! hij mag", bezoeker["leeftijd"], gek_attractie["attractie_min_leeftijd"])
+        check2()
+    else:
+        print("nee")
 
 
 # check 2, is lengte okay?
-if bezoeker["lengte"] > gek_attractie["attractie_min_lengte"] or gek_attractie["attractie_min_lengte"] is not None:
-    print("klopt! hij mag")
-else:
-    print("nee")
+def check2():
+    if (
+        gek_attractie["attractie_min_lengte"] is None
+        or bezoeker["lengte"] >= gek_attractie["attractie_min_lengte"] 
+    ):
+        print("klopt! hij mag")
+        check3()
+    else:
+        print("nee")
 
 # check 3, is gewicht okay?
-if bezoeker["gewicht"] <= gek_attractie["attractie_max_gewicht"] and gek_attractie["attractie_max_gewicht"] is not None:
-    print("klopt! hij mag", )
-elif gek_attractie["attractie_max_gewicht"] is None:
-    print("klopt! hij mag", )
-else:
-    print("nee",bezoeker["gewicht"], gek_attractie["attractie_max_gewicht"])
+def check3():
+    if (
+        gek_attractie["attractie_max_gewicht"] is None
+        or bezoeker["gewicht"] <= gek_attractie["attractie_max_gewicht"] 
+    ):
+        print("klopt! hij mag", )
+        check4()
+    else:
+        print("nee",bezoeker["gewicht"], gek_attractie["attractie_max_gewicht"])
+
+# bekijk het voorwaarde van regenen. dit past toe op check5
+def check4():
+    global weervoorwaarde
+
+    temperatuur = 15
+    kans_op_regen = False
+
+    if temperatuur >= 15 and kans_op_regen == False:
+        print("jep, het gaat niet regenen")
+        weervoorwaarde = "buiten"
+    else:
+        print("nee, gaat regenen dus binnenattracties")
+        weervoorwaarde = "binnen"
+
+    check5()
+
+# check of gekozen(gek) binnen is en past bij attribuut van weervoorwaarde
+def check5():
+    if gek_attractie["overdekt"] == 1 and weervoorwaarde == "binnen" or gek_attractie["overdekt"] == 0 and weervoorwaarde != "binnen":
+        print("ja deze past dus dan hier bij")
+    else:
+        print("error mismatch 404")
+
+check1()
 
 # uiteindelijk schrijven we de dictionary weg naar een JSON-bestand, die kan worden ingelezen door de acceptatieomgeving
 with open('dagprogramma_bezoeker_x.json', 'w') as json_bestand_uitvoer:
