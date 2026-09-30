@@ -89,13 +89,32 @@ attr_potje = []
 # counter define
 counter = 0
 
+# gesplitte RATTR omdat hij kennelijk eerst voorkeur attracties moet hebben
+voorkeur_attracties = [
+    attractie
+    for attractie in attracties
+    if attractie["type"] in dagprogramma["bezoekersgegevens"]["voorkeuren_attractietypes"]
+]
+
+overige_attracties = [
+    attractie
+    for attractie in attracties
+    if attractie["type"] not in dagprogramma["bezoekersgegevens"]["voorkeuren_attractietypes"]
+]
+
 # dit in een define voor herroep
-# pick een random attractie uit lijst
 def Rattr():
     global gek_attractie
-    gek_attractie = random.choice(attracties)
+    # Eerst voorkeuren gebruiken
+    if voorkeur_attracties:
+        gek_attractie = random.choice(voorkeur_attracties)
 
-    # print(gek_attractie)
+    # Als er geen voorkeur-attracties zijn,
+    # gebruik andere attracties Origninal RATTR imp
+    elif overige_attracties:
+        gek_attractie = random.choice(overige_attracties)
+    else:
+        gek_attractie = random.choice(attracties)
 
 Rattr()
 # nu gaan we volgorde check alles met define doen!
