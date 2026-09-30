@@ -9,14 +9,14 @@ import random
 # Database initialisatie en verbinden
 # -----------------------------------------
 # parameters voor connectie met de database
-db = Database(host="localhost", gebruiker="root", wachtwoord="Hosseine@200", database="attractiepark_casus_a")
+db = Database(host="localhost", gebruiker="root", wachtwoord="test", database="attractiepark_casus_a")
 # altijd verbinding openen om query's uit te voeren
 db.connect()
 
 # -----------------------------------------
 # Haal de eigenschappen op van een bezoeker
 # -----------------------------------------
-bezoeker_id = 1 # pas id aan om een andere bezoeker te selecteren
+bezoeker_id = 2 # pas id aan om een andere bezoeker te selecteren
 
 
 # SQL-query om alle gegevens van één bezoeker op te halen op basis van het ID.
@@ -24,6 +24,9 @@ select_query = f"SELECT * FROM bezoeker WHERE id = {bezoeker_id}"
 resultaat = db.execute_query(select_query)
 
 # haal de eerste rij uit het resultaat.
+if not resultaat:
+    print("Bezoeker niet gevonden")
+    exit()
 bezoeker = resultaat[0]
 
 # voorbeeld van hoe je bij een eigenschap komt
@@ -74,23 +77,34 @@ dagprogramma = {
     },
     "weergegevens": {
         "temperatuur": 20,
-        "kans_op_regen": 0
+        "kans_op_regen": False
     }, 
-    "voorzieningen": [], # STAP 2: Hier gaan we zo attracties/horeca toevoegen
+    "voorzieningen": voorziening["voorziening"], # STAP 2: Hier gaan we zo attracties/horeca toevoegen
     "totale_duur": 0
 }
+# doorlooptijd plus wachtijd en overgebleven duur
+duurover = bezoeker["verblijfsduur"]
+totaal_tijd = 0
+
+# potje van alle attracties die passen
+attr_potje = []
 
 # dit in een define voor herroep
 # pick een random attractie uit lijst
 def Rattr():
     global gek_attractie
 
-    gek_attractie = random.choice(voorzieningen)
+    gek_attractie = random.choice(attracties)
 
     print(gek_attractie)
 
 Rattr()
 # nu gaan we volgorde check alles met define doen!
+def voegtoe():
+    if attr_potje:
+        # lijst bestaat. FORCEFALLBACK
+        attr_potje = gek_attractie
+
 
 # check 1, is leeftijd okay?
 def check1():
@@ -130,8 +144,8 @@ def check3():
 def check4():
     global weervoorwaarde
 
-    temperatuur = 15
-    kans_op_regen = False
+    temperatuur = dagprogramma["weergegevens"]["temperatuur"]
+    kans_op_regen = dagprogramma["weergegevens"]["kans_op_regen"]
 
     if temperatuur >= 15 and kans_op_regen == False:
         print("jep, het gaat niet regenen")
@@ -147,13 +161,50 @@ def check5():
     if weervoorwaarde == "binnen":
         if gek_attractie["overdekt"] == 1:
             print("Ja, deze attractie past bij het weer")
+            check6()
         else:
             print("Nee, deze attractie is buiten")
     else:
-        if gek_attractie["overdekt"] == 0:
-            print("Ja, deze attractie past bij het weer")
+        print("geen slecht weer alles mag!")
+
+# lievelingsattractie moet 2 maal
+def check6():
+    if bezoeker["lievelingsattracties"] is not None:
+        # dus bezoeker heeft lievelingsattractie en nu is die gekozen het wel?
+        if gek_attractie["naam"] == bezoeker["lievelingsattracties"]:
+            # yep 2 maal
+            return()
         else:
-            print("Nee, deze attractie is binnen")
+            # okay het is niet gelijk dus 1. return
+            check7()
+    else:
+        # direct skippen. return
+        check7()
+
+def check7():
+    global duur
+    global duurover
+
+    duur = gek_attractie["geschatte_wachtijd"] + gek_attractie["doorlooptijd"]
+
+    # de check
+    if duurover >= duur:
+        duurover = duurover-duur
+        # check of er meer kan of niet
+        if duurover <= 0:
+            # dit is laatste dus direct naar maken
+            voegtoe()
+            # genereer()
+        else:
+            counter +=1
+            voegtoe()
+            # tel op. als we alle attr zijn geweest dan stop + klaar
+    # else:
+        # niet toevoegen wel genereer
+        # genereer()
+        
+
+
 
 check1()
 
