@@ -10,6 +10,14 @@
             "Simulator",
             "Water"
         ],
+        "lievelingsattracties": [
+            "Sky Diver"
+        ],
+        "voorkeuren_eten": [
+            "Patat",
+            "Snoep",
+            "IJs"
+        ],
         "rekening_houden_met_weer": false
     },
     "weergegevens": {
