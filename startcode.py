@@ -79,7 +79,8 @@ dagprogramma = {
     "voorzieningen": [], # STAP 2: Hier gaan we zo attracties/horeca toevoegen
     "totale_duur": 0
 }
-voorkeuren = [v.strip() for v in dagprogramma["bezoekersgegevens"]["voorkeuren_attractietypes"]]
+voorkeuren = [v.strip().lower() for v in dagprogramma["bezoekersgegevens"]["voorkeuren_attractietypes"]]
+# minor bug fix. lower case omdat hij telkens family en cases niet reageerde
 lievelingen = [l.strip() for l in dagprogramma["bezoekersgegevens"]["lievelingsattracties"]]
 
 temperatuur = dagprogramma["weergegevens"]["temperatuur"]
