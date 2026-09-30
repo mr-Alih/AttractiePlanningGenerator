@@ -238,8 +238,102 @@ def check7(lievelings=False):
 
 # geneer
 def genereer():
-    # print(attr_potje)
-    return()
+    programma = []
+
+    # dobbellen
+    attractie_programma = attr_potje.copy()
+    random.shuffle(attractie_programma)
+
+    # horeca zoeken bij voorkeur
+    voorkeur_eten = dagprogramma["bezoekersgegevens"]["voorkeuren_eten"]
+    passende_horeca = [
+        h
+        for h in horeca
+        if h["productaanbod"] in voorkeur_eten
+    ] 
+    #dit is puur om een random te pakken.
+    # FORCEFALLBACK
+    # random
+    if not passende_horeca:
+        passende_horeca = horeca.copy()
+
+    # einde souvenierwinkel
+    if winkels:
+        gekozen_winkel = random.choice(winkels)
+    else:
+        gekozen_winkel = None
+        # forcefallback
+    # jeyy HET WEKREKRTKITNO
+
+    # horeca positie is eidne
+    aantal_attracties = len(attractie_programma)
+    horeca_posities = []
+    if aantal_attracties > 0:
+        horeca_posities.append(aantal_attracties // 2)
+
+    # FR 11 moet je bij meer dan 4 uur elke activieteit 2 uur . HORECA
+    verblijfsduur = bezoeker["verblijfsduur"]
+    if verblijfsduur > 240:
+        extra_horeca_aantal = verblijfsduur //120
+        for i in range (1, extra_horeca_aantal):
+            positie = int(aantal_attracties * i / extra_horeca_aantal)
+            # breinpein maar hij plaats het in midden.
+            if positie not in horeca_posities:
+                horeca_posities.append(positie)
+
+    horeca_posities.sort()
+    # eindsorting
+
+    # nu maakt hij alles
+    horeca_teller = 0
+
+    for i, attractie in enumerate(attractie_programma):
+
+        programma.append({
+            "type": "attractie",
+            "voorziening": attractie
+        })
+
+        # Maximaal 5 minuten lopen
+        if i < len(attractie_programma) - 1:
+            looptijd = random.randint(0, 5)
+
+            programma.append({
+                "type": "lopen",
+                "duur": looptijd
+            })
+
+        # Horeca op juiste positie
+        if (i + 1) in horeca_posities:
+
+            if horeca_teller == 0:
+                horeca_keuze = gekozen_horeca
+            else:
+                if passende_horeca:
+                    horeca_keuze = random.choice(passende_horeca)
+
+            programma.append({
+                "type": "horeca",
+                "voorziening": horeca_keuze
+            })
+
+            programma.append({
+                "type": "eetpauze",
+                "duur": 15
+            })
+
+            horeca_teller += 1
+
+    # souvenierwinkel erin
+    if gekozen_winkel is not None:
+        programma.append({
+            "type": "winkel",
+            "voorziening": gekozen_winkel
+        })
+
+    # laa
+    dagprogramma["voorzieningen"] = programma
+    print(programma)
 
 check1()
 
