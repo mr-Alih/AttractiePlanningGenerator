@@ -26,165 +26,129 @@
     },
     "voorzieningen": [
         {
+            "id": 12,
+            "naam": "Mountain Climb",
             "type": "attractie",
-            "voorziening": {
-                "id": 7,
-                "naam": "Sky Diver",
-                "type": "achtbaan",
-                "overdekt": 0,
-                "geschatte_wachttijd": 35,
-                "doorlooptijd": 5,
-                "actief": 1,
-                "attractie_min_lengte": 140,
-                "attractie_max_lengte": null,
-                "attractie_min_leeftijd": 12,
-                "attractie_max_gewicht": 110,
-                "productaanbod": null
-            }
+            "overdekt": 0,
+            "geschatte_wachttijd": 50,
+            "doorlooptijd": 7,
+            "actief": 1,
+            "attractie_min_lengte": 125,
+            "attractie_max_lengte": null,
+            "attractie_min_leeftijd": 12,
+            "attractie_max_gewicht": 105,
+            "productaanbod": null
         },
         {
-            "type": "lopen",
-            "duur": 3
-        },
-        {
+            "id": 32,
+            "naam": "Ice Cream Parlor",
             "type": "horeca",
-            "voorziening": {
-                "id": 31,
-                "naam": "Fries Joint",
-                "type": "horeca",
-                "overdekt": 1,
-                "geschatte_wachttijd": 12,
-                "doorlooptijd": 18,
-                "actief": 1,
-                "attractie_min_lengte": null,
-                "attractie_max_lengte": null,
-                "attractie_min_leeftijd": null,
-                "attractie_max_gewicht": null,
-                "productaanbod": "Patat"
-            }
+            "overdekt": 1,
+            "geschatte_wachttijd": 6,
+            "doorlooptijd": 10,
+            "actief": 1,
+            "attractie_min_lengte": null,
+            "attractie_max_lengte": null,
+            "attractie_min_leeftijd": null,
+            "attractie_max_gewicht": null,
+            "productaanbod": "IJs"
         },
         {
             "type": "eetpauze",
             "duur": 15
         },
         {
+            "id": 35,
+            "naam": "Rocket Ride",
             "type": "attractie",
-            "voorziening": {
-                "id": 35,
-                "naam": "Rocket Ride",
-                "type": "achtbaan",
-                "overdekt": 0,
-                "geschatte_wachttijd": 45,
-                "doorlooptijd": 7,
-                "actief": 1,
-                "attractie_min_lengte": 130,
-                "attractie_max_lengte": 210,
-                "attractie_min_leeftijd": 12,
-                "attractie_max_gewicht": 105,
-                "productaanbod": null
-            }
+            "overdekt": 0,
+            "geschatte_wachttijd": 45,
+            "doorlooptijd": 7,
+            "actief": 1,
+            "attractie_min_lengte": 130,
+            "attractie_max_lengte": 210,
+            "attractie_min_leeftijd": 12,
+            "attractie_max_gewicht": 105,
+            "productaanbod": null
         },
         {
-            "type": "lopen",
-            "duur": 2
-        },
-        {
+            "id": 54,
+            "naam": "Snack Bar",
             "type": "horeca",
-            "voorziening": {
-                "id": 54,
-                "naam": "Snack Bar",
-                "type": "horeca",
-                "overdekt": 1,
-                "geschatte_wachttijd": 8,
-                "doorlooptijd": 15,
-                "actief": 1,
-                "attractie_min_lengte": null,
-                "attractie_max_lengte": null,
-                "attractie_min_leeftijd": null,
-                "attractie_max_gewicht": null,
-                "productaanbod": "Patat"
-            }
+            "overdekt": 1,
+            "geschatte_wachttijd": 8,
+            "doorlooptijd": 15,
+            "actief": 1,
+            "attractie_min_lengte": null,
+            "attractie_max_lengte": null,
+            "attractie_min_leeftijd": null,
+            "attractie_max_gewicht": null,
+            "productaanbod": "Patat"
         },
         {
             "type": "eetpauze",
             "duur": 15
         },
         {
+            "id": 40,
+            "naam": "Looping Dragon",
             "type": "attractie",
-            "voorziening": {
-                "id": 12,
-                "naam": "Mountain Climb",
-                "type": "achtbaan",
-                "overdekt": 0,
-                "geschatte_wachttijd": 50,
-                "doorlooptijd": 7,
-                "actief": 1,
-                "attractie_min_lengte": 125,
-                "attractie_max_lengte": null,
-                "attractie_min_leeftijd": 12,
-                "attractie_max_gewicht": 105,
-                "productaanbod": null
-            }
+            "overdekt": 0,
+            "geschatte_wachttijd": 40,
+            "doorlooptijd": 6,
+            "actief": 1,
+            "attractie_min_lengte": 135,
+            "attractie_max_lengte": null,
+            "attractie_min_leeftijd": 11,
+            "attractie_max_gewicht": 105,
+            "productaanbod": null
         },
         {
-            "type": "lopen",
-            "duur": 1
-        },
-        {
+            "id": 31,
+            "naam": "Fries Joint",
             "type": "horeca",
-            "voorziening": {
-                "id": 32,
-                "naam": "Ice Cream Parlor",
-                "type": "horeca",
-                "overdekt": 1,
-                "geschatte_wachttijd": 6,
-                "doorlooptijd": 10,
-                "actief": 1,
-                "attractie_min_lengte": null,
-                "attractie_max_lengte": null,
-                "attractie_min_leeftijd": null,
-                "attractie_max_gewicht": null,
-                "productaanbod": "IJs"
-            }
+            "overdekt": 1,
+            "geschatte_wachttijd": 12,
+            "doorlooptijd": 18,
+            "actief": 1,
+            "attractie_min_lengte": null,
+            "attractie_max_lengte": null,
+            "attractie_min_leeftijd": null,
+            "attractie_max_gewicht": null,
+            "productaanbod": "Patat"
         },
         {
             "type": "eetpauze",
             "duur": 15
         },
         {
+            "id": 7,
+            "naam": "Sky Diver",
             "type": "attractie",
-            "voorziening": {
-                "id": 40,
-                "naam": "Looping Dragon",
-                "type": "achtbaan",
-                "overdekt": 0,
-                "geschatte_wachttijd": 40,
-                "doorlooptijd": 6,
-                "actief": 1,
-                "attractie_min_lengte": 135,
-                "attractie_max_lengte": null,
-                "attractie_min_leeftijd": 11,
-                "attractie_max_gewicht": 105,
-                "productaanbod": null
-            }
+            "overdekt": 0,
+            "geschatte_wachttijd": 35,
+            "doorlooptijd": 5,
+            "actief": 1,
+            "attractie_min_lengte": 140,
+            "attractie_max_lengte": null,
+            "attractie_min_leeftijd": 12,
+            "attractie_max_gewicht": 110,
+            "productaanbod": null
         },
         {
+            "id": 28,
+            "naam": "Souvenir Shop",
             "type": "winkel",
-            "voorziening": {
-                "id": 51,
-                "naam": "Book Store",
-                "type": "winkel",
-                "overdekt": 1,
-                "geschatte_wachttijd": 5,
-                "doorlooptijd": 12,
-                "actief": 1,
-                "attractie_min_lengte": null,
-                "attractie_max_lengte": null,
-                "attractie_min_leeftijd": null,
-                "attractie_max_gewicht": null,
-                "productaanbod": "Souvenirs"
-            }
+            "overdekt": 1,
+            "geschatte_wachttijd": 5,
+            "doorlooptijd": 10,
+            "actief": 1,
+            "attractie_min_lengte": null,
+            "attractie_max_lengte": null,
+            "attractie_min_leeftijd": null,
+            "attractie_max_gewicht": null,
+            "productaanbod": "Souvenirs"
         }
     ],
-    "totale_duur": 0
+    "totale_duur": 334
 }

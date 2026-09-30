@@ -229,6 +229,25 @@ def genereer():
 attr_potje = kies_attracties()
 genereer()
 
+# maak de voorzieningen "plat" zodat de acceptatieomgeving ze snapt
+# soort van convertie dat hij doet door 
+# alles rewrite. 
+schoon = []
+totaal = 0
+for s in dagprogramma["voorzieningen"]:
+    if s["type"] == "lopen":
+        totaal += s["duur"]          # telt mee in de tijd, maar komt niet in de JSON
+        continue
+    if s["type"] == "eetpauze":
+        totaal += s["duur"]
+        schoon.append(s)
+        continue
+    v = s["voorziening"]
+    totaal += v["geschatte_wachttijd"] + v["doorlooptijd"]
+    schoon.append({**v, "type": s["type"]})   # naam, wachttijd enz. direct in het item
+
+dagprogramma["voorzieningen"] = schoon
+dagprogramma["totale_duur"] = totaal
 # uiteindelijk schrijven we de dictionary weg naar een JSON-bestand, die kan worden ingelezen door de acceptatieomgeving
 with open('dagprogramma_bezoeker_x.json', 'w') as json_bestand_uitvoer:
     json.dump(dagprogramma, json_bestand_uitvoer, indent=4)
