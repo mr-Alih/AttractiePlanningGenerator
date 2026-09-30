@@ -16,7 +16,7 @@ db.connect()
 # -----------------------------------------
 # Haal de eigenschappen op van een bezoeker
 # -----------------------------------------
-bezoeker_id = 1 # pas id aan om een andere bezoeker te selecteren
+bezoeker_id = 2 # pas id aan om een andere bezoeker te selecteren
 
 
 # SQL-query om alle gegevens van één bezoeker op te halen op basis van het ID.
@@ -90,20 +90,29 @@ binnen_nodig = (
 )
 
 def mag_attractie(a):
+    # alle checks in 1
+    # is attractie bestaand?
     if a["actief"] != 1:
         return False
+    # mag deze persoon zijn lengte
     if a["attractie_max_lengte"] is not None and bezoeker["lengte"] > a["attractie_max_lengte"]:
         return False
+    # is hij oud genoeg
     if a["attractie_min_leeftijd"] is not None and bezoeker["leeftijd"] < a["attractie_min_leeftijd"]:
         return False
+    # min
     if a["attractie_min_lengte"] is not None and bezoeker["lengte"] < a["attractie_min_lengte"]:
         return False
+    # is zijn gewicht okay?
     if a["attractie_max_gewicht"] is not None and bezoeker["gewicht"] > a["attractie_max_gewicht"]:
         return False
+    # BIJ EERDERE CHECK. WEATHER BINNEN boalean. nodig?
     if binnen_nodig and a["overdekt"] != 1:
         return False
     return True
+# beter dan alles herthinken in function. want nu retruned hij opnieuw.
 
+# simepele SWATCH/FLOP voor of hij wel lievelingen heeft en dan direct voorkeuren biedt
 def prioriteit(a):
     if a["naam"] in lievelingen:
         return 0
@@ -123,6 +132,7 @@ def kies_attracties():
             gekozen.append(a)
             over -= duur
     return gekozen
+# RATTR function
 
 
 
