@@ -79,7 +79,7 @@ dagprogramma = {
         "temperatuur": 20,
         "kans_op_regen": False
     }, 
-    "voorzieningen": voorziening["voorziening"], # STAP 2: Hier gaan we zo attracties/horeca toevoegen
+    "voorzieningen": [], # STAP 2: Hier gaan we zo attracties/horeca toevoegen
     "totale_duur": 0
 }
 # doorlooptijd plus wachtijd en overgebleven duur
@@ -88,6 +88,9 @@ totaal_tijd = 0
 
 # potje van alle attracties die passen
 attr_potje = []
+
+# counter define
+counter = 0
 
 # dit in een define voor herroep
 # pick een random attractie uit lijst
@@ -101,9 +104,10 @@ def Rattr():
 Rattr()
 # nu gaan we volgorde check alles met define doen!
 def voegtoe():
+    global attr_potje
     if attr_potje:
         # lijst bestaat. FORCEFALLBACK
-        attr_potje = gek_attractie
+        attr_potje.append(gek_attractie)
 
 
 # check 1, is leeftijd okay?
@@ -169,21 +173,19 @@ def check5():
 
 # lievelingsattractie moet 2 maal
 def check6():
-    if bezoeker["lievelingsattracties"] is not None:
-        # dus bezoeker heeft lievelingsattractie en nu is die gekozen het wel?
-        if gek_attractie["naam"] == bezoeker["lievelingsattracties"]:
-            # yep 2 maal
-            return()
-        else:
-            # okay het is niet gelijk dus 1. return
-            check7()
-    else:
-        # direct skippen. return
+    # nieuw systeem over lievelingsattractie. moet 2 maal (RETURN)
+    if gek_attractie["naam"] in dagprogramma["bezoekersgegevens"]["lievelingsattracties"]:
+        print("Dit is een lievelingsattractie!")
+        voegtoe()
         check7()
 
-def check7():
+    else:
+        check7(True)
+
+def check7(check2=False):
     global duur
     global duurover
+    global counter
 
     duur = gek_attractie["geschatte_wachtijd"] + gek_attractie["doorlooptijd"]
 
@@ -192,19 +194,34 @@ def check7():
         duurover = duurover-duur
         # check of er meer kan of niet
         if duurover <= 0:
-            # dit is laatste dus direct naar maken
-            voegtoe()
-            # genereer()
+            if not check2:
+                # dit is laatste dus direct naar maken
+                voegtoe()
+                genereer()
+            else:
+                # lievelingsattractie past er niet in dus ff verwijderen
+                # verwijder iets behalve de lievelings!
+                Safe = attr_potje.index(gek_attractie)
+                delete = random.randint(0, len(attr_potje))
+                if Safe != delete:
+                    attr_potje.pop()
+                else:
+                    check7()
         else:
+            # dus duur past niet niet meer
             counter +=1
             voegtoe()
+            # opnieuw
+            Rattr()
             # tel op. als we alle attr zijn geweest dan stop + klaar
-    # else:
+    else:
         # niet toevoegen wel genereer
-        # genereer()
+        genereer()
         
 
-
+# geneer
+def genereer():
+    return()
 
 check1()
 
