@@ -121,13 +121,28 @@ def prioriteit(a):
     return 2
 # deze had ik geen idee hoe het moest. ik vroeeg een SWATCH maar FLIP werkte beter.
 def kies_attracties():
+    v = bezoeker["verblijfsduur"]
+
+    # tijd die al vastligt (worst case), dus die mag niet aan attracties opgaan
+    # dit zijn de bufferzones ook eigenlijk. die wordt toegevoegd.
+    # math eigenlijk maar telkens de helft en defaults
+    aantal_horeca = v // 120 if v > 240 else 1
+    langste_horeca = max((h["geschatte_wachttijd"] + h["doorlooptijd"] for h in horeca), default=0)
+    langste_winkel = max((w["geschatte_wachttijd"] + w["doorlooptijd"] for w in winkels), default=0)
+    reserve = aantal_horeca * (langste_horeca + 15 + 5) + langste_winkel + 5
+    # moest veel editen want hij ging overschotten
+    # slechste case. beetje point system.
+    # nooit over tijd. 5 minuten lopen. 
+    # 
+    over = v - reserve
+
     geschikt = [a for a in attracties if mag_attractie(a)]
-    random.shuffle(geschikt)           # eerst husselen
-    geschikt.sort(key=prioriteit)      # sort is stabiel: binnen een groep blijft het random
-    over = bezoeker["verblijfsduur"]
+    random.shuffle(geschikt)
+    geschikt.sort(key=prioriteit)
+
     gekozen = []
     for a in geschikt:
-        duur = a["geschatte_wachttijd"] + a["doorlooptijd"]
+        duur = a["geschatte_wachttijd"] + a["doorlooptijd"] + 5   # +5 = worst case lopen
         if duur <= over:
             gekozen.append(a)
             over -= duur
