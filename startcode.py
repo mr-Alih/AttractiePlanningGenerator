@@ -79,181 +79,52 @@ dagprogramma = {
     "voorzieningen": [], # STAP 2: Hier gaan we zo attracties/horeca toevoegen
     "totale_duur": 0
 }
-# doorlooptijd plus wachtijd en overgebleven duur
-duurover = bezoeker["verblijfsduur"]
-totaal_tijd = 0
+voorkeuren = [v.strip() for v in dagprogramma["bezoekersgegevens"]["voorkeuren_attractietypes"]]
+lievelingen = [l.strip() for l in dagprogramma["bezoekersgegevens"]["lievelingsattracties"]]
 
-# potje van alle attracties die passen
-attr_potje = []
+temperatuur = dagprogramma["weergegevens"]["temperatuur"]
+kans_op_regen = dagprogramma["weergegevens"]["kans_op_regen"]
+binnen_nodig = (
+    dagprogramma["bezoekersgegevens"]["rekening_houden_met_weer"]
+    and (temperatuur < 15 or kans_op_regen)
+)
 
-# counter define
-counter = 0
+def mag_attractie(a):
+    if a["actief"] != 1:
+        return False
+    if a["attractie_max_lengte"] is not None and bezoeker["lengte"] > a["attractie_max_lengte"]:
+        return False
+    if a["attractie_min_leeftijd"] is not None and bezoeker["leeftijd"] < a["attractie_min_leeftijd"]:
+        return False
+    if a["attractie_min_lengte"] is not None and bezoeker["lengte"] < a["attractie_min_lengte"]:
+        return False
+    if a["attractie_max_gewicht"] is not None and bezoeker["gewicht"] > a["attractie_max_gewicht"]:
+        return False
+    if binnen_nodig and a["overdekt"] != 1:
+        return False
+    return True
 
-# gesplitte RATTR omdat hij kennelijk eerst voorkeur attracties moet hebben
-voorkeur_attracties = [
-    attractie
-    for attractie in attracties
-    if attractie["type"] in dagprogramma["bezoekersgegevens"]["voorkeuren_attractietypes"]
-]
-
-overige_attracties = [
-    attractie
-    for attractie in attracties
-    if attractie["type"] not in dagprogramma["bezoekersgegevens"]["voorkeuren_attractietypes"]
-]
-
-# dit in een define voor herroep
-def Rattr():
-    global gek_attractie
-    # Eerst voorkeuren gebruiken
-    if voorkeur_attracties:
-        gek_attractie = random.choice(voorkeur_attracties)
-
-    # Als er geen voorkeur-attracties zijn,
-    # gebruik andere attracties Origninal RATTR imp
-    elif overige_attracties:
-        gek_attractie = random.choice(overige_attracties)
-    else:
-        gek_attractie = random.choice(attracties)
-
-Rattr()
-# nu gaan we volgorde check alles met define doen!
-def voegtoe():
-    # lijst bestaat. FORCEFALLBACK
-    attr_potje.append(gek_attractie)
-    print("TOEGEVOEGD:", gek_attractie["naam"])
-
-
-# check 1, is leeftijd okay?
-def check1():
-    if (
-        gek_attractie["attractie_min_leeftijd"] is None
-        or bezoeker["leeftijd"] >= gek_attractie["attractie_min_leeftijd"]
-    ):
-        # print("klopt! hij mag", bezoeker["leeftijd"], gek_attractie["attractie_min_leeftijd"])
-        check2()
-    else:
-        # print("nee")
-        Rattr()
-        check1()
+def prioriteit(a):
+    if a["naam"] in lievelingen:
+        return 0
+    if a["type"] in voorkeuren:
+        return 1
+    return 2
+# deze had ik geen idee hoe het moest. ik vroeeg een SWATCH maar FLIP werkte beter.
+def kies_attracties():
+    geschikt = [a for a in attracties if mag_attractie(a)]
+    random.shuffle(geschikt)           # eerst husselen
+    geschikt.sort(key=prioriteit)      # sort is stabiel: binnen een groep blijft het random
+    over = bezoeker["verblijfsduur"]
+    gekozen = []
+    for a in geschikt:
+        duur = a["geschatte_wachttijd"] + a["doorlooptijd"]
+        if duur <= over:
+            gekozen.append(a)
+            over -= duur
+    return gekozen
 
 
-# check 2, is lengte okay?
-def check2():
-    if (
-        gek_attractie["attractie_min_lengte"] is None
-        or bezoeker["lengte"] >= gek_attractie["attractie_min_lengte"] 
-    ):
-        # print("klopt! hij mag")
-        check3()
-    else:
-        # print("nee")
-        Rattr()
-        check1()
-
-# check 3, is gewicht okay?
-def check3():
-    if (
-        gek_attractie["attractie_max_gewicht"] is None
-        or bezoeker["gewicht"] <= gek_attractie["attractie_max_gewicht"] 
-    ):
-        # print("klopt! hij mag", )
-        check4()
-    else:
-        # print("nee",bezoeker["gewicht"], gek_attractie["attractie_max_gewicht"])
-        Rattr()
-        check1()
-
-# bekijk het voorwaarde van regenen. dit past toe op check5
-def check4():
-    global weervoorwaarde
-
-    temperatuur = dagprogramma["weergegevens"]["temperatuur"]
-    kans_op_regen = dagprogramma["weergegevens"]["kans_op_regen"]
-
-    if temperatuur >= 15 and kans_op_regen == False:
-        # print("jep, het gaat niet regenen")
-        weervoorwaarde = "buiten"
-    else:
-        # print("nee, gaat regenen dus binnenattracties")
-        weervoorwaarde = "binnen"
-
-    check5()
-
-# check of gekozen(gek) binnen is en past bij attribuut van weervoorwaarde
-def check5():
-    if weervoorwaarde == "binnen":
-        if gek_attractie["overdekt"] == 1:
-            # print("Ja, deze attractie past bij het weer")
-            check6()
-        else:
-            # print("Nee, deze attractie is buiten")
-            Rattr()
-            check1()
-    else:
-        # print("geen slecht weer alles mag!")
-        check6()
-
-# lievelingsattractie moet 2 maal
-def check6():
-    # nieuw systeem over lievelingsattractie. moet 2 maal (RETURN)
-    if gek_attractie["naam"] in dagprogramma["bezoekersgegevens"]["lievelingsattracties"]:
-        # print("Dit is een lievelingsattractie!")
-        check7(True)
-
-    else:
-        check7()
-
-def check7(lievelings=False):
-    global duur
-    global duurover
-    global counter
-
-    duur = gek_attractie["geschatte_wachttijd"] + gek_attractie["doorlooptijd"]
-
-    # de check past hij in resterende tijd
-    if duurover >= duur:
-        duurover -= duur
-        voegtoe()
-        # check of er meer kan of niet
-        if duurover <= 0:
-            genereer()
-        else:
-            counter += 1
-            Rattr()
-            check1()
-    else:
-        # Is dit de tweede lievelingsattractie?
-        if lievelings:
-
-            lievelingen = dagprogramma["bezoekersgegevens"]["lievelingsattracties"]
-            # Zoek alle attracties die GEEN lievelingsattractie zijn
-            niet_lievelingen = [
-                attractie
-                for attractie in attr_potje
-                if attractie["naam"] not in lievelingen
-            ]
-            # Als er iets verwijderd kan worden
-            if niet_lievelingen:
-                te_verwijderen = random.choice(niet_lievelingen)
-                attr_potje.remove(te_verwijderen)
-
-                # Tijd van verwijderde attractie teruggeven
-                vrijgekomen_tijd = (
-                    te_verwijderen["geschatte_wachtijd"]
-                    + te_verwijderen["doorlooptijd"]
-                )
-                duurover += vrijgekomen_tijd
-                # print("Verwijderd:", te_verwijderen["naam"])
-                # print("Nieuwe resterende tijd:", duurover)
-                # Nu opnieuw proberen
-                check7(lievelings=True)
-            else:
-                # print("Geen niet-lievelingsattractie meer om te verwijderen.")
-                print(" ")
-        else:
-            genereer()
-        
 
 # geneer
 def genereer():
@@ -287,8 +158,10 @@ def genereer():
     # horeca positie is eidne
     aantal_attracties = len(attractie_programma)
     horeca_posities = []
+    aantal_attracties = len(attractie_programma)
     if aantal_attracties > 0:
-        horeca_posities.append(aantal_attracties // 2)
+        horeca_posities.append(max(1, aantal_attracties // 2))
+        # max toegevoegd. fijner
 
     # FR 11 moet je bij meer dan 4 uur elke activieteit 2 uur . HORECA
     verblijfsduur = bezoeker["verblijfsduur"]
@@ -325,11 +198,10 @@ def genereer():
         # Horeca op juiste positie
         if (i + 1) in horeca_posities:
 
-            if horeca_teller == 0:
-                horeca_keuze = gekozen_horeca
+            if passende_horeca:
+                horeca_keuze = random.choice(passende_horeca)
             else:
-                if passende_horeca:
-                    horeca_keuze = random.choice(passende_horeca)
+                horeca_keuze = None
 
             programma.append({
                 "type": "horeca",
@@ -354,8 +226,15 @@ def genereer():
     dagprogramma["voorzieningen"] = programma
     print(programma)
 
-check1()
+attr_potje = kies_attracties()
+genereer()
 
 # uiteindelijk schrijven we de dictionary weg naar een JSON-bestand, die kan worden ingelezen door de acceptatieomgeving
 with open('dagprogramma_bezoeker_x.json', 'w') as json_bestand_uitvoer:
     json.dump(dagprogramma, json_bestand_uitvoer, indent=4)
+
+# extreme edit. dit komt doordat ik eerste alle stappen heb gepakt.
+# nu heb ik alles aan elkaar geplakt met 1 groot BLOCK. 
+# extreem fijn edit want ik begrijp precies elk block en kon leren 
+# hoe dingen ging reageren.
+# chatgpt zei dat ook paar calculation blockken niet werkte
