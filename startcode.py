@@ -36,6 +36,20 @@ print(bezoeker['naam'])
 select_query = "SELECT * FROM voorziening"
 voorzieningen = db.execute_query(select_query)
 
+attracties = []
+horeca = []
+winkels = []
+
+for voorziening in voorzieningen:
+    if voorziening["type"] in ["achtbaan", "water", "draaien", "familie", "simulator"]:
+        attracties.append(voorziening)
+
+    elif voorziening["type"] == "horeca":
+        horeca.append(voorziening)
+
+    elif voorziening["type"] == "winkel":
+        winkels.append(voorziening)
+
 # print de resultaten van de query op een overzichtelijke manier
 # pprint.pp(voorzieningen) 
 
@@ -68,10 +82,11 @@ dagprogramma = {
 
 # dit in een define voor herroep
 # pick een random attractie uit lijst
-def Rattr ():
+def Rattr():
     global gek_attractie
-    random_attractie = random.randint(0, len(voorzieningen) - 1)
-    gek_attractie = voorzieningen[random_attractie]
+
+    gek_attractie = random.choice(voorzieningen)
+
     print(gek_attractie)
 
 Rattr()
@@ -129,10 +144,16 @@ def check4():
 
 # check of gekozen(gek) binnen is en past bij attribuut van weervoorwaarde
 def check5():
-    if gek_attractie["overdekt"] == 1 and weervoorwaarde == "binnen" or gek_attractie["overdekt"] == 0 and weervoorwaarde != "binnen":
-        print("ja deze past dus dan hier bij")
+    if weervoorwaarde == "binnen":
+        if gek_attractie["overdekt"] == 1:
+            print("Ja, deze attractie past bij het weer")
+        else:
+            print("Nee, deze attractie is buiten")
     else:
-        print("error mismatch 404")
+        if gek_attractie["overdekt"] == 0:
+            print("Ja, deze attractie past bij het weer")
+        else:
+            print("Nee, deze attractie is binnen")
 
 check1()
 
