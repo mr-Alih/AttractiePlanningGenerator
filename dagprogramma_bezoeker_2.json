@@ -26,17 +26,17 @@
     },
     "voorzieningen": [
         {
-            "id": 48,
-            "naam": "Fairy Tale Ride",
+            "id": 38,
+            "naam": "Family Train",
             "type": "attractie",
             "overdekt": 0,
-            "geschatte_wachttijd": 18,
-            "doorlooptijd": 6,
+            "geschatte_wachttijd": 10,
+            "doorlooptijd": 5,
             "actief": 1,
-            "attractie_min_lengte": 100,
-            "attractie_max_lengte": 140,
-            "attractie_min_leeftijd": 7,
-            "attractie_max_gewicht": 75,
+            "attractie_min_lengte": 95,
+            "attractie_max_lengte": null,
+            "attractie_min_leeftijd": 4,
+            "attractie_max_gewicht": 70,
             "productaanbod": null
         },
         {
@@ -54,18 +54,18 @@
             "productaanbod": null
         },
         {
-            "id": 54,
-            "naam": "Snack Bar",
+            "id": 34,
+            "naam": "Pasta House",
             "type": "horeca",
             "overdekt": 1,
             "geschatte_wachttijd": 8,
-            "doorlooptijd": 15,
+            "doorlooptijd": 20,
             "actief": 1,
             "attractie_min_lengte": null,
             "attractie_max_lengte": null,
             "attractie_min_leeftijd": null,
             "attractie_max_gewicht": null,
-            "productaanbod": "Patat"
+            "productaanbod": "Pasta"
         },
         {
             "type": "eetpauze",
@@ -86,33 +86,33 @@
             "productaanbod": null
         },
         {
-            "id": 43,
-            "naam": "Magic Forest",
+            "id": 4,
+            "naam": "Family Fun Ride",
             "type": "attractie",
             "overdekt": 0,
             "geschatte_wachttijd": 15,
-            "doorlooptijd": 5,
+            "doorlooptijd": 4,
             "actief": 1,
             "attractie_min_lengte": 90,
-            "attractie_max_lengte": null,
-            "attractie_min_leeftijd": 6,
+            "attractie_max_lengte": 180,
+            "attractie_min_leeftijd": 5,
             "attractie_max_gewicht": 70,
             "productaanbod": null
         },
         {
-            "id": 52,
-            "naam": "Jewelry Shop",
+            "id": 53,
+            "naam": "Electronic Store",
             "type": "winkel",
             "overdekt": 1,
             "geschatte_wachttijd": 5,
-            "doorlooptijd": 15,
+            "doorlooptijd": 12,
             "actief": 1,
             "attractie_min_lengte": null,
             "attractie_max_lengte": null,
             "attractie_min_leeftijd": null,
             "attractie_max_gewicht": null,
-            "productaanbod": "Zomerartiekelen"
+            "productaanbod": "Souvenirs"
         }
     ],
-    "totale_duur": 142
+    "totale_duur": 136
 }

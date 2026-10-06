@@ -196,7 +196,7 @@ def kies_attracties():
     kandidaten = favorieten + favorieten + rest
 
     gekozen = []
-    for a in geschikt:
+    for a in kandidaten: #had niet eens die lievelingspotje gebruikt
         duur = a["geschatte_wachttijd"] + a["doorlooptijd"] + 5   # +5 = worst case lopen
         if duur <= over:
             gekozen.append(a)
@@ -358,3 +358,10 @@ with open(f'dagprogramma_bezoeker_{bezoeker["id"]}.json', 'w') as json_bestand_u
 
 #pip install openmeteo-requests
 # pip install requests-cache retry-requests numpy pandas
+
+# ik heb alle fr die moeten.
+# FR4 , 6 , 10 , 13 en 14
+# plus heb ik fr 7 sorteren op voorkeur, ook fr8 om te mixen
+# ook heb ik fr 11 om bij 4 uur langer dat hij elke 2 uur horeca heeft
+# ook heb ik loopafstanden
+# de coulds heb ik niet.
