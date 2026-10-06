@@ -121,7 +121,7 @@ dagprogramma = {
         "rekening_houden_met_weer": bool(bezoeker['rekening_houden_met_weer'])
     },
     "weergegevens": {
-        "temperatuur": round(int(temperatuur), 2), #2 decimalen opsturen!
+        "temperatuur": f"{temperatuur:.2f}", #2 decimalen opsturen!
         "kans_op_regen": hetweer 
     }, 
     "voorzieningen": [], 
@@ -190,7 +190,7 @@ def kies_attracties():
     random.shuffle(geschikt)
     geschikt.sort(key=prioriteit)
 
-    # NIEUW: lievelingen 2x in de kandidatenlijst, voor de rest
+    # lievelingen 2x in de kandidatenlijst, voor de rest
     favorieten = [a for a in geschikt if a["naam"] in lievelingen]
     rest = [a for a in geschikt if a["naam"] not in lievelingen]
     kandidaten = favorieten + favorieten + rest
@@ -211,8 +211,26 @@ def genereer():
     programma = []
 
     # dobbellen
-    attractie_programma = attr_potje.copy()
-    random.shuffle(attractie_programma)
+    unieke = []
+    dubbel = []
+    for a in attr_potje:
+        if a in unieke:
+            dubbel.append(a)
+        else:
+            unieke.append(a)
+
+    fav_uniek = [a for a in unieke if a["naam"] in lievelingen]
+    rest = [a for a in unieke if a["naam"] not in lievelingen]
+    random.shuffle(rest)
+    helft = len(rest) // 2
+
+    # eerste helft van de dag: 1e keer lieveling, tweede helft: 2e keer
+    eerste = rest[:helft] + fav_uniek
+    tweede = rest[helft:] + dubbel
+    random.shuffle(eerste)
+    random.shuffle(tweede)
+    attractie_programma = eerste + tweede
+    # hoofdpijn. ik had het gespilts in 2 delen voor favoriete gedeelte.
 
     # horeca zoeken bij voorkeur
     voorkeur_eten = dagprogramma["bezoekersgegevens"]["voorkeuren_eten"]

@@ -21,67 +21,21 @@
         "rekening_houden_met_weer": false
     },
     "weergegevens": {
-        "temperatuur": 17,
+        "temperatuur": "17.29",
         "kans_op_regen": "goed weer"
     },
     "voorzieningen": [
         {
-            "id": 15,
-            "naam": "Family Carousel",
+            "id": 48,
+            "naam": "Fairy Tale Ride",
             "type": "attractie",
             "overdekt": 0,
-            "geschatte_wachttijd": 12,
-            "doorlooptijd": 5,
+            "geschatte_wachttijd": 18,
+            "doorlooptijd": 6,
             "actief": 1,
-            "attractie_min_lengte": 90,
-            "attractie_max_lengte": null,
-            "attractie_min_leeftijd": 4,
-            "attractie_max_gewicht": 65,
-            "productaanbod": null
-        },
-        {
-            "id": 38,
-            "naam": "Family Train",
-            "type": "attractie",
-            "overdekt": 0,
-            "geschatte_wachttijd": 10,
-            "doorlooptijd": 5,
-            "actief": 1,
-            "attractie_min_lengte": 95,
-            "attractie_max_lengte": null,
-            "attractie_min_leeftijd": 4,
-            "attractie_max_gewicht": 70,
-            "productaanbod": null
-        },
-        {
-            "id": 31,
-            "naam": "Fries Joint",
-            "type": "horeca",
-            "overdekt": 1,
-            "geschatte_wachttijd": 12,
-            "doorlooptijd": 18,
-            "actief": 1,
-            "attractie_min_lengte": null,
-            "attractie_max_lengte": null,
-            "attractie_min_leeftijd": null,
-            "attractie_max_gewicht": null,
-            "productaanbod": "Patat"
-        },
-        {
-            "type": "eetpauze",
-            "duur": 15
-        },
-        {
-            "id": 23,
-            "naam": "Spinning Teacups",
-            "type": "attractie",
-            "overdekt": 1,
-            "geschatte_wachttijd": 15,
-            "doorlooptijd": 3,
-            "actief": 1,
-            "attractie_min_lengte": 95,
-            "attractie_max_lengte": null,
-            "attractie_min_leeftijd": 5,
+            "attractie_min_lengte": 100,
+            "attractie_max_lengte": 140,
+            "attractie_min_leeftijd": 7,
             "attractie_max_gewicht": 75,
             "productaanbod": null
         },
@@ -100,19 +54,65 @@
             "productaanbod": null
         },
         {
-            "id": 51,
-            "naam": "Book Store",
-            "type": "winkel",
+            "id": 54,
+            "naam": "Snack Bar",
+            "type": "horeca",
             "overdekt": 1,
-            "geschatte_wachttijd": 5,
-            "doorlooptijd": 12,
+            "geschatte_wachttijd": 8,
+            "doorlooptijd": 15,
             "actief": 1,
             "attractie_min_lengte": null,
             "attractie_max_lengte": null,
             "attractie_min_leeftijd": null,
             "attractie_max_gewicht": null,
-            "productaanbod": "Souvenirs"
+            "productaanbod": "Patat"
+        },
+        {
+            "type": "eetpauze",
+            "duur": 15
+        },
+        {
+            "id": 38,
+            "naam": "Family Train",
+            "type": "attractie",
+            "overdekt": 0,
+            "geschatte_wachttijd": 10,
+            "doorlooptijd": 5,
+            "actief": 1,
+            "attractie_min_lengte": 95,
+            "attractie_max_lengte": null,
+            "attractie_min_leeftijd": 4,
+            "attractie_max_gewicht": 70,
+            "productaanbod": null
+        },
+        {
+            "id": 43,
+            "naam": "Magic Forest",
+            "type": "attractie",
+            "overdekt": 0,
+            "geschatte_wachttijd": 15,
+            "doorlooptijd": 5,
+            "actief": 1,
+            "attractie_min_lengte": 90,
+            "attractie_max_lengte": null,
+            "attractie_min_leeftijd": 6,
+            "attractie_max_gewicht": 70,
+            "productaanbod": null
+        },
+        {
+            "id": 52,
+            "naam": "Jewelry Shop",
+            "type": "winkel",
+            "overdekt": 1,
+            "geschatte_wachttijd": 5,
+            "doorlooptijd": 15,
+            "actief": 1,
+            "attractie_min_lengte": null,
+            "attractie_max_lengte": null,
+            "attractie_min_leeftijd": null,
+            "attractie_max_gewicht": null,
+            "productaanbod": "Zomerartiekelen"
         }
     ],
-    "totale_duur": 135
+    "totale_duur": 142
 }
