@@ -4,6 +4,38 @@ import json
 import pprint
 from database_wrapper import Database
 import random
+import openmeteo_requests
+import requests_cache
+from retry_requests import retry
+
+# WRAPPER voor weather. DIT IS VAN WEATHER MATEOS
+# API instellen
+cache_session = requests_cache.CachedSession('.cache', expire_after=3600)
+retry_session = retry(cache_session, retries=5, backoff_factor=0.2)
+openmeteo = openmeteo_requests.Client(session=retry_session)
+
+url = "https://api.open-meteo.com/v1/forecast"
+
+params = {
+    "latitude": 52.3702,
+    "longitude": 5.2141,
+    "current": ["temperature_2m", "rain"],
+}
+
+responses = openmeteo.weather_api(url, params=params)
+
+response = responses[0]
+current = response.Current()
+
+temperatuur = current.Variables(0).Value()
+regen = current.Variables(1).Value()
+
+if regen > 0:
+    hetweer = "rain"
+else:
+    hetweer = "goed weer"
+
+
 
 # -----------------------------------------
 # Database initialisatie en verbinden
@@ -99,11 +131,13 @@ voorkeuren = [v.strip().lower() for v in dagprogramma["bezoekersgegevens"]["voor
 # minor bug fix. lower case omdat hij telkens family en cases niet reageerde
 lievelingen = [l.strip() for l in dagprogramma["bezoekersgegevens"]["lievelingsattracties"]]
 
-temperatuur = dagprogramma["weergegevens"]["temperatuur"]
-kans_op_regen = dagprogramma["weergegevens"]["kans_op_regen"]
+# temperatuur = temperatuur eerder via mateo
+# kijken of het nodig is om binnenattracites te zoeken. 
+# temp lager dan 15 is koud, binnen.
+# weer slecht door mateo dan yep binnen.
 binnen_nodig = (
     dagprogramma["bezoekersgegevens"]["rekening_houden_met_weer"]
-    and (temperatuur < 15 or kans_op_regen)
+    and (temperatuur < 15 or hetweer == "rain")
 )
 
 def mag_attractie(a):
