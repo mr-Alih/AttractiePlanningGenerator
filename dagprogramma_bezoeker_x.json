@@ -40,16 +40,16 @@
             "productaanbod": null
         },
         {
-            "id": 19,
-            "naam": "Jungle Trek",
+            "id": 24,
+            "naam": "Dragon Quest",
             "type": "attractie",
             "overdekt": 0,
-            "geschatte_wachttijd": 18,
-            "doorlooptijd": 6,
+            "geschatte_wachttijd": 20,
+            "doorlooptijd": 5,
             "actief": 1,
-            "attractie_min_lengte": 100,
+            "attractie_min_lengte": 90,
             "attractie_max_lengte": null,
-            "attractie_min_leeftijd": 7,
+            "attractie_min_leeftijd": 6,
             "attractie_max_gewicht": 70,
             "productaanbod": null
         },
@@ -72,20 +72,6 @@
             "duur": 15
         },
         {
-            "id": 15,
-            "naam": "Family Carousel",
-            "type": "attractie",
-            "overdekt": 0,
-            "geschatte_wachttijd": 12,
-            "doorlooptijd": 5,
-            "actief": 1,
-            "attractie_min_lengte": 90,
-            "attractie_max_lengte": null,
-            "attractie_min_leeftijd": 4,
-            "attractie_max_gewicht": 65,
-            "productaanbod": null
-        },
-        {
             "id": 38,
             "naam": "Family Train",
             "type": "attractie",
@@ -100,19 +86,33 @@
             "productaanbod": null
         },
         {
-            "id": 53,
-            "naam": "Electronic Store",
+            "id": 15,
+            "naam": "Family Carousel",
+            "type": "attractie",
+            "overdekt": 0,
+            "geschatte_wachttijd": 12,
+            "doorlooptijd": 5,
+            "actief": 1,
+            "attractie_min_lengte": 90,
+            "attractie_max_lengte": null,
+            "attractie_min_leeftijd": 4,
+            "attractie_max_gewicht": 65,
+            "productaanbod": null
+        },
+        {
+            "id": 52,
+            "naam": "Jewelry Shop",
             "type": "winkel",
             "overdekt": 1,
             "geschatte_wachttijd": 5,
-            "doorlooptijd": 12,
+            "doorlooptijd": 15,
             "actief": 1,
             "attractie_min_lengte": null,
             "attractie_max_lengte": null,
             "attractie_min_leeftijd": null,
             "attractie_max_gewicht": null,
-            "productaanbod": "Souvenirs"
+            "productaanbod": "Zomerartiekelen"
         }
     ],
-    "totale_duur": 130
+    "totale_duur": 132
 }

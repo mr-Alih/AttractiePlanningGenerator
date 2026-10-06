@@ -43,15 +43,31 @@ attracties = []
 horeca = []
 winkels = []
 
-for voorziening in voorzieningen:
-    if voorziening["type"] in ["achtbaan", "water", "draaien", "familie", "simulator"]:
-        attracties.append(voorziening)
+# Alle attracties
+select_query = """
+SELECT *
+FROM voorziening
+WHERE type IN ('achtbaan', 'water', 'draaien', 'familie', 'simulator')
+"""
+attracties = db.execute_query(select_query)
 
-    elif voorziening["type"] == "horeca":
-        horeca.append(voorziening)
 
-    elif voorziening["type"] == "winkel":
-        winkels.append(voorziening)
+# Alle horeca
+select_query = """
+SELECT *
+FROM voorziening
+WHERE type = 'horeca'
+"""
+horeca = db.execute_query(select_query)
+
+
+# Alle winkels
+select_query = """
+SELECT *
+FROM voorziening
+WHERE type = 'winkel'
+"""
+winkels = db.execute_query(select_query)
 
 # print de resultaten van de query op een overzichtelijke manier
 # pprint.pp(voorzieningen) 
@@ -76,7 +92,7 @@ dagprogramma = {
         "temperatuur": 20,
         "kans_op_regen": False
     }, 
-    "voorzieningen": [], # STAP 2: Hier gaan we zo attracties/horeca toevoegen
+    "voorzieningen": [], 
     "totale_duur": 0
 }
 voorkeuren = [v.strip().lower() for v in dagprogramma["bezoekersgegevens"]["voorkeuren_attractietypes"]]
