@@ -101,9 +101,7 @@ WHERE type = 'winkel'
 """
 winkels = db.execute_query(select_query)
 
-# print de resultaten van de query op een overzichtelijke manier
-# pprint.pp(voorzieningen) 
-
+# DIT HEB IK PUUR GEDAAN OMDAT IK GEEN FILTERING VAN QUERY HAD
 # altijd verbinding sluiten met de database als je klaar bent
 db.close()
 
