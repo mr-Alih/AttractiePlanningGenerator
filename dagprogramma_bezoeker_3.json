@@ -1,0 +1,206 @@
+{
+    "bezoekersgegevens": {
+        "naam": "Lisanne Hemman",
+        "verblijfsduur": 460,
+        "leeftijd": 19,
+        "lengte": 165,
+        "gewicht": 70,
+        "voorkeuren_attractietypes": [
+            "Water"
+        ],
+        "lievelingsattracties": [
+            ""
+        ],
+        "voorkeuren_eten": [
+            ""
+        ],
+        "rekening_houden_met_weer": "goed weer"
+    },
+    "weergegevens": {
+        "temperatuur": "17.29",
+        "kans_op_regen": "goed weer"
+    },
+    "voorzieningen": [
+        {
+            "id": 17,
+            "naam": "Thunder Falls",
+            "type": "attractie",
+            "overdekt": 0,
+            "geschatte_wachttijd": 32,
+            "doorlooptijd": 7,
+            "actief": 1,
+            "attractie_min_lengte": 105,
+            "attractie_max_lengte": null,
+            "attractie_min_leeftijd": 9,
+            "attractie_max_gewicht": 85,
+            "productaanbod": null
+        },
+        {
+            "id": 41,
+            "naam": "Wave Rider",
+            "type": "attractie",
+            "overdekt": 0,
+            "geschatte_wachttijd": 25,
+            "doorlooptijd": 6,
+            "actief": 1,
+            "attractie_min_lengte": 105,
+            "attractie_max_lengte": null,
+            "attractie_min_leeftijd": 7,
+            "attractie_max_gewicht": 85,
+            "productaanbod": null
+        },
+        {
+            "id": 54,
+            "naam": "Snack Bar",
+            "type": "horeca",
+            "overdekt": 1,
+            "geschatte_wachttijd": 8,
+            "doorlooptijd": 15,
+            "actief": 1,
+            "attractie_min_lengte": null,
+            "attractie_max_lengte": null,
+            "attractie_min_leeftijd": null,
+            "attractie_max_gewicht": null,
+            "productaanbod": "Patat"
+        },
+        {
+            "type": "eetpauze",
+            "duur": 15
+        },
+        {
+            "id": 22,
+            "naam": "Splashdown",
+            "type": "attractie",
+            "overdekt": 0,
+            "geschatte_wachttijd": 28,
+            "doorlooptijd": 5,
+            "actief": 1,
+            "attractie_min_lengte": 110,
+            "attractie_max_lengte": 200,
+            "attractie_min_leeftijd": 8,
+            "attractie_max_gewicht": 90,
+            "productaanbod": null
+        },
+        {
+            "id": 2,
+            "naam": "Splash Mountain",
+            "type": "attractie",
+            "overdekt": 0,
+            "geschatte_wachttijd": 30,
+            "doorlooptijd": 5,
+            "actief": 1,
+            "attractie_min_lengte": 100,
+            "attractie_max_lengte": null,
+            "attractie_min_leeftijd": 8,
+            "attractie_max_gewicht": 90,
+            "productaanbod": null
+        },
+        {
+            "id": 32,
+            "naam": "Ice Cream Parlor",
+            "type": "horeca",
+            "overdekt": 1,
+            "geschatte_wachttijd": 6,
+            "doorlooptijd": 10,
+            "actief": 1,
+            "attractie_min_lengte": null,
+            "attractie_max_lengte": null,
+            "attractie_min_leeftijd": null,
+            "attractie_max_gewicht": null,
+            "productaanbod": "IJs"
+        },
+        {
+            "type": "eetpauze",
+            "duur": 15
+        },
+        {
+            "id": 36,
+            "naam": "Waterfall Adventure",
+            "type": "attractie",
+            "overdekt": 0,
+            "geschatte_wachttijd": 30,
+            "doorlooptijd": 6,
+            "actief": 1,
+            "attractie_min_lengte": 110,
+            "attractie_max_lengte": null,
+            "attractie_min_leeftijd": 8,
+            "attractie_max_gewicht": 95,
+            "productaanbod": null
+        },
+        {
+            "id": 46,
+            "naam": "Rapid River",
+            "type": "attractie",
+            "overdekt": 0,
+            "geschatte_wachttijd": 28,
+            "doorlooptijd": 5,
+            "actief": 1,
+            "attractie_min_lengte": 110,
+            "attractie_max_lengte": null,
+            "attractie_min_leeftijd": 8,
+            "attractie_max_gewicht": 95,
+            "productaanbod": null
+        },
+        {
+            "id": 55,
+            "naam": "Pancake Mania",
+            "type": "horeca",
+            "overdekt": 1,
+            "geschatte_wachttijd": 10,
+            "doorlooptijd": 20,
+            "actief": 1,
+            "attractie_min_lengte": null,
+            "attractie_max_lengte": null,
+            "attractie_min_leeftijd": null,
+            "attractie_max_gewicht": null,
+            "productaanbod": "Pannenkoeken"
+        },
+        {
+            "type": "eetpauze",
+            "duur": 15
+        },
+        {
+            "id": 8,
+            "naam": "River Rapids",
+            "type": "attractie",
+            "overdekt": 0,
+            "geschatte_wachttijd": 25,
+            "doorlooptijd": 8,
+            "actief": 1,
+            "attractie_min_lengte": 100,
+            "attractie_max_lengte": null,
+            "attractie_min_leeftijd": 7,
+            "attractie_max_gewicht": 85,
+            "productaanbod": null
+        },
+        {
+            "id": 13,
+            "naam": "Cave Splash",
+            "type": "attractie",
+            "overdekt": 0,
+            "geschatte_wachttijd": 22,
+            "doorlooptijd": 6,
+            "actief": 1,
+            "attractie_min_lengte": 110,
+            "attractie_max_lengte": null,
+            "attractie_min_leeftijd": 8,
+            "attractie_max_gewicht": 95,
+            "productaanbod": null
+        },
+        {
+            "id": 29,
+            "naam": "Candy Store",
+            "type": "winkel",
+            "overdekt": 1,
+            "geschatte_wachttijd": 5,
+            "doorlooptijd": 8,
+            "actief": 1,
+            "attractie_min_lengte": null,
+            "attractie_max_lengte": null,
+            "attractie_min_leeftijd": null,
+            "attractie_max_gewicht": null,
+            "productaanbod": "Snoep"
+        }
+    ],
+    "totale_duur": 408
+}

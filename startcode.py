@@ -48,7 +48,7 @@ db.connect()
 # -----------------------------------------
 # Haal de eigenschappen op van een bezoeker
 # -----------------------------------------
-bezoeker_id = 2 # pas id aan om een andere bezoeker te selecteren
+bezoeker_id = 3 # pas id aan om een andere bezoeker te selecteren
 
 
 # SQL-query om alle gegevens van één bezoeker op te halen op basis van het ID.
@@ -118,7 +118,7 @@ dagprogramma = {
         "voorkeuren_attractietypes": bezoeker['voorkeuren_attractietypes'].split(','),
         "lievelingsattracties": bezoeker['lievelingsattracties'].split(','),
         "voorkeuren_eten": bezoeker['voorkeuren_eten'].split(','),
-        "rekening_houden_met_weer": bool(bezoeker['rekening_houden_met_weer'])
+        "rekening_houden_met_weer": hetweer
     },
     "weergegevens": {
         "temperatuur": f"{temperatuur:.2f}", #2 decimalen opsturen!
@@ -139,6 +139,17 @@ binnen_nodig = (
     dagprogramma["bezoekersgegevens"]["rekening_houden_met_weer"]
     and (temperatuur < 15 or hetweer == "rain")
 )
+
+# horeca en winkel nu al kiezen, zodat kies_attracties de echte tijd kan aftrekken
+verblijfsduur = bezoeker["verblijfsduur"]
+aantal_horeca = verblijfsduur // 120 if verblijfsduur > 240 else 1
+
+voorkeur_eten = [e.strip() for e in dagprogramma["bezoekersgegevens"]["voorkeuren_eten"]]
+passende_horeca = [h for h in horeca if h["productaanbod"] in voorkeur_eten] or horeca
+random.shuffle(passende_horeca)
+gekozen_horeca = [passende_horeca[i % len(passende_horeca)] for i in range(aantal_horeca)]
+
+gekozen_winkel = random.choice(winkels)
 
 def mag_attractie(a):
     # alle checks in 1
@@ -177,10 +188,8 @@ def kies_attracties():
     # tijd die al vastligt (worst case), dus die mag niet aan attracties opgaan
     # dit zijn de bufferzones ook eigenlijk. die wordt toegevoegd.
     # math eigenlijk maar telkens de helft en defaults
-    aantal_horeca = v // 120 if v > 240 else 1
-    langste_horeca = max((h["geschatte_wachttijd"] + h["doorlooptijd"] for h in horeca), default=0)
-    langste_winkel = max((w["geschatte_wachttijd"] + w["doorlooptijd"] for w in winkels), default=0)
-    reserve = aantal_horeca * (langste_horeca + 15 + 5) + langste_winkel + 5
+    reserve = sum(h["geschatte_wachttijd"] + h["doorlooptijd"] + 15 + 5 for h in gekozen_horeca)
+    reserve += gekozen_winkel["geschatte_wachttijd"] + gekozen_winkel["doorlooptijd"] + 5
     # moest veel editen want hij ging overschotten
     # slechste case. beetje point system.
     # nooit over tijd. 5 minuten lopen. 
@@ -233,43 +242,32 @@ def genereer():
     # hoofdpijn. ik had het gespilts in 2 delen voor favoriete gedeelte.
 
     # horeca zoeken bij voorkeur
-    voorkeur_eten = dagprogramma["bezoekersgegevens"]["voorkeuren_eten"]
-    passende_horeca = [
-        h
-        for h in horeca
-        if h["productaanbod"] in voorkeur_eten
-    ] 
+    # verwijderd0 omdat ik nu systeem voor gekozen winkel onder lagere drempel doe.
     #dit is puur om een random te pakken.
     # FORCEFALLBACK
     # random
-    if not passende_horeca:
-        passende_horeca = horeca.copy()
+    
 
-    # einde souvenierwinkel
-    if winkels:
-        gekozen_winkel = random.choice(winkels)
-    else:
-        gekozen_winkel = None
-        # forcefallback
-    # jeyy HET WEKREKRTKITNO
+    # # einde souvenierwinkel
+    # if winkels:
+    #     gekozen_winkel = random.choice(winkels)
+    # else:
+    #     gekozen_winkel = None
+    #     # forcefallback
+    # # jeyy HET WEKREKRTKITNO
 
     # horeca positie is eidne
+    # horeca gelijkmatig verdelen (FR10 + FR11)
     aantal_attracties = len(attractie_programma)
+    n_h = len(gekozen_horeca)
     horeca_posities = []
-    aantal_attracties = len(attractie_programma)
-    if aantal_attracties > 0:
-        horeca_posities.append(max(1, aantal_attracties // 2))
+    for k in range(n_h):
+        positie = max(1, aantal_attracties * (k + 1) // (n_h + 1))
+        if positie not in horeca_posities:
+            horeca_posities.append(positie)
         # max toegevoegd. fijner
 
-    # FR 11 moet je bij meer dan 4 uur elke activieteit 2 uur . HORECA
-    verblijfsduur = bezoeker["verblijfsduur"]
-    if verblijfsduur > 240:
-        extra_horeca_aantal = verblijfsduur //120
-        for i in range (1, extra_horeca_aantal):
-            positie = int(aantal_attracties * i / extra_horeca_aantal)
-            # breinpein maar hij plaats het in midden.
-            if positie not in horeca_posities:
-                horeca_posities.append(positie)
+    
 
     horeca_posities.sort()
     # eindsorting
@@ -286,7 +284,7 @@ def genereer():
 
         # Maximaal 5 minuten lopen
         if i < len(attractie_programma) - 1:
-            looptijd = random.randint(0, 5)
+            looptijd = random.randint(0, 3) #er stond opdracht gemid 2.5 minuten
 
             programma.append({
                 "type": "lopen",
@@ -294,12 +292,13 @@ def genereer():
             })
 
         # Horeca op juiste positie
-        if (i + 1) in horeca_posities:
+        if (i + 1) in horeca_posities and horeca_teller < len(gekozen_horeca):
 
-            if passende_horeca:
-                horeca_keuze = random.choice(passende_horeca)
-            else:
-                horeca_keuze = None
+            # if passende_horeca:
+            #     horeca_keuze = random.choice(passende_horeca)
+            # else:
+            #     horeca_keuze = None
+            horeca_keuze = gekozen_horeca[horeca_teller]
 
             programma.append({
                 "type": "horeca",
@@ -314,11 +313,10 @@ def genereer():
             horeca_teller += 1
 
     # souvenierwinkel erin
-    if gekozen_winkel is not None:
-        programma.append({
-            "type": "winkel",
-            "voorziening": gekozen_winkel
-        })
+    programma.append({
+        "type": "winkel",
+        "voorziening": gekozen_winkel
+    }) #new dit wil ik doen puur omdat je dannieuwere horeca posities gebruikt.
 
     # laa
     dagprogramma["voorzieningen"] = programma
