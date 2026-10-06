@@ -121,8 +121,8 @@ dagprogramma = {
         "rekening_houden_met_weer": bool(bezoeker['rekening_houden_met_weer'])
     },
     "weergegevens": {
-        "temperatuur": 20,
-        "kans_op_regen": False
+        "temperatuur": temperatuur,
+        "kans_op_regen": hetweer
     }, 
     "voorzieningen": [], 
     "totale_duur": 0
@@ -325,7 +325,7 @@ for s in dagprogramma["voorzieningen"]:
 dagprogramma["voorzieningen"] = schoon
 dagprogramma["totale_duur"] = totaal
 # uiteindelijk schrijven we de dictionary weg naar een JSON-bestand, die kan worden ingelezen door de acceptatieomgeving
-with open('dagprogramma_bezoeker_x.json', 'w') as json_bestand_uitvoer:
+with open(f'dagprogramma_bezoeker_{bezoeker["id"]}.json', 'w') as json_bestand_uitvoer:
     json.dump(dagprogramma, json_bestand_uitvoer, indent=4)
 
 # extreme edit. dit komt doordat ik eerste alle stappen heb gepakt.
