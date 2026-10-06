@@ -21,22 +21,22 @@
         "rekening_houden_met_weer": false
     },
     "weergegevens": {
-        "temperatuur": 18.443500518798828,
+        "temperatuur": 17,
         "kans_op_regen": "goed weer"
     },
     "voorzieningen": [
         {
-            "id": 4,
-            "naam": "Family Fun Ride",
+            "id": 15,
+            "naam": "Family Carousel",
             "type": "attractie",
             "overdekt": 0,
-            "geschatte_wachttijd": 15,
-            "doorlooptijd": 4,
+            "geschatte_wachttijd": 12,
+            "doorlooptijd": 5,
             "actief": 1,
             "attractie_min_lengte": 90,
-            "attractie_max_lengte": 180,
-            "attractie_min_leeftijd": 5,
-            "attractie_max_gewicht": 70,
+            "attractie_max_lengte": null,
+            "attractie_min_leeftijd": 4,
+            "attractie_max_gewicht": 65,
             "productaanbod": null
         },
         {
@@ -54,48 +54,48 @@
             "productaanbod": null
         },
         {
-            "id": 32,
-            "naam": "Ice Cream Parlor",
+            "id": 31,
+            "naam": "Fries Joint",
             "type": "horeca",
             "overdekt": 1,
-            "geschatte_wachttijd": 6,
-            "doorlooptijd": 10,
+            "geschatte_wachttijd": 12,
+            "doorlooptijd": 18,
             "actief": 1,
             "attractie_min_lengte": null,
             "attractie_max_lengte": null,
             "attractie_min_leeftijd": null,
             "attractie_max_gewicht": null,
-            "productaanbod": "IJs"
+            "productaanbod": "Patat"
         },
         {
             "type": "eetpauze",
             "duur": 15
         },
         {
-            "id": 10,
-            "naam": "Adventure Ride",
+            "id": 23,
+            "naam": "Spinning Teacups",
             "type": "attractie",
-            "overdekt": 0,
-            "geschatte_wachttijd": 18,
-            "doorlooptijd": 5,
+            "overdekt": 1,
+            "geschatte_wachttijd": 15,
+            "doorlooptijd": 3,
             "actief": 1,
             "attractie_min_lengte": 95,
             "attractie_max_lengte": null,
-            "attractie_min_leeftijd": 6,
+            "attractie_min_leeftijd": 5,
             "attractie_max_gewicht": 75,
             "productaanbod": null
         },
         {
-            "id": 43,
-            "naam": "Magic Forest",
+            "id": 4,
+            "naam": "Family Fun Ride",
             "type": "attractie",
             "overdekt": 0,
             "geschatte_wachttijd": 15,
-            "doorlooptijd": 5,
+            "doorlooptijd": 4,
             "actief": 1,
             "attractie_min_lengte": 90,
-            "attractie_max_lengte": null,
-            "attractie_min_leeftijd": 6,
+            "attractie_max_lengte": 180,
+            "attractie_min_leeftijd": 5,
             "attractie_max_gewicht": 70,
             "productaanbod": null
         },

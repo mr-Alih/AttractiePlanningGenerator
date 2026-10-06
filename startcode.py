@@ -121,8 +121,8 @@ dagprogramma = {
         "rekening_houden_met_weer": bool(bezoeker['rekening_houden_met_weer'])
     },
     "weergegevens": {
-        "temperatuur": temperatuur,
-        "kans_op_regen": hetweer
+        "temperatuur": round(int(temperatuur), 2), #2 decimalen opsturen!
+        "kans_op_regen": hetweer 
     }, 
     "voorzieningen": [], 
     "totale_duur": 0
@@ -184,12 +184,16 @@ def kies_attracties():
     # moest veel editen want hij ging overschotten
     # slechste case. beetje point system.
     # nooit over tijd. 5 minuten lopen. 
-    # 
     over = v - reserve
 
     geschikt = [a for a in attracties if mag_attractie(a)]
     random.shuffle(geschikt)
     geschikt.sort(key=prioriteit)
+
+    # NIEUW: lievelingen 2x in de kandidatenlijst, voor de rest
+    favorieten = [a for a in geschikt if a["naam"] in lievelingen]
+    rest = [a for a in geschikt if a["naam"] not in lievelingen]
+    kandidaten = favorieten + favorieten + rest
 
     gekozen = []
     for a in geschikt:
@@ -333,3 +337,6 @@ with open(f'dagprogramma_bezoeker_{bezoeker["id"]}.json', 'w') as json_bestand_u
 # extreem fijn edit want ik begrijp precies elk block en kon leren 
 # hoe dingen ging reageren.
 # chatgpt zei dat ook paar calculation blockken niet werkte
+
+#pip install openmeteo-requests
+# pip install requests-cache retry-requests numpy pandas
