@@ -48,7 +48,7 @@ db.connect()
 # -----------------------------------------
 # Haal de eigenschappen op van een bezoeker
 # -----------------------------------------
-bezoeker_id = 3 # pas id aan om een andere bezoeker te selecteren
+bezoeker_id = 1 # pas id aan om een andere bezoeker te selecteren
 
 
 # SQL-query om alle gegevens van één bezoeker op te halen op basis van het ID.
@@ -361,3 +361,6 @@ with open(f'dagprogramma_bezoeker_{bezoeker["id"]}.json', 'w') as json_bestand_u
 # ook heb ik fr 11 om bij 4 uur langer dat hij elke 2 uur horeca heeft
 # ook heb ik loopafstanden
 # de coulds heb ik niet.
+
+# river rapids en rapids river?
+# feedback was dat die tijd nog niet klopt
