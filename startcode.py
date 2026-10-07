@@ -31,8 +31,6 @@ except Exception as fout:
     temperatuur = 20
     hetweer = "goed weer"
 
-
-
 # -----------------------------------------
 # Database initialisatie en verbinden
 # -----------------------------------------
@@ -44,7 +42,7 @@ db.connect()
 # -----------------------------------------
 # Haal de eigenschappen op van een bezoeker
 # -----------------------------------------
-bezoeker_id = 1 # pas id aan om een andere bezoeker te selecteren
+bezoeker_id = 2 # pas id aan om een andere bezoeker te selecteren
 
 
 # SQL-query om alle gegevens van één bezoeker op te halen op basis van het ID.
@@ -57,17 +55,6 @@ if not resultaat:
     exit()
 bezoeker = resultaat[0]
 
-
-# -----------------------------------------
-# Haal alle voorzieningen op
-# -----------------------------------------
-# pas deze query aan en voeg queries toe om de juiste voorzieningen op te halen
-# select_query = "SELECT * FROM voorziening"
-# voorzieningen = db.execute_query(select_query)
-
-# attracties = []
-# horeca = []
-# winkels = []
 
 # Alle attracties
 select_query = """
@@ -322,7 +309,11 @@ for s in dagprogramma["voorzieningen"]:
         continue
     v = s["voorziening"]
     totaal += v["geschatte_wachttijd"] + v["doorlooptijd"]
-    schoon.append({**v, "type": s["type"]})   # naam, wachttijd enz. direct in het item
+    
+    item = {**v, "type": s["type"]}
+    if s["type"] == "attractie" and v["naam"] in lievelingen:
+        item["is_favoriet"] = True
+    schoon.append(item)
 
 dagprogramma["voorzieningen"] = schoon
 dagprogramma["totale_duur"] = totaal
