@@ -1,7 +1,5 @@
 # import modulen
-from pathlib import Path
 import json
-import pprint
 from database_wrapper import Database
 import random
 import openmeteo_requests
@@ -22,17 +20,15 @@ params = {
     "current": ["temperature_2m", "rain"],
 }
 
-responses = openmeteo.weather_api(url, params=params)
-
-response = responses[0]
-current = response.Current()
-
-temperatuur = current.Variables(0).Value()
-regen = current.Variables(1).Value()
-
-if regen > 0:
-    hetweer = "rain"
-else:
+try:
+    responses = openmeteo.weather_api(url, params=params)
+    current = responses[0].Current()
+    temperatuur = current.Variables(0).Value()
+    regen = current.Variables(1).Value()
+    hetweer = "rain" if regen > 0 else "goed weer"
+except Exception as fout:
+    print("Weer-API niet bereikbaar:", fout)
+    temperatuur = 20
     hetweer = "goed weer"
 
 
@@ -61,19 +57,17 @@ if not resultaat:
     exit()
 bezoeker = resultaat[0]
 
-# voorbeeld van hoe je bij een eigenschap komt
-print(bezoeker['naam']) 
 
 # -----------------------------------------
 # Haal alle voorzieningen op
 # -----------------------------------------
 # pas deze query aan en voeg queries toe om de juiste voorzieningen op te halen
-select_query = "SELECT * FROM voorziening"
-voorzieningen = db.execute_query(select_query)
+# select_query = "SELECT * FROM voorziening"
+# voorzieningen = db.execute_query(select_query)
 
-attracties = []
-horeca = []
-winkels = []
+# attracties = []
+# horeca = []
+# winkels = []
 
 # Alle attracties
 select_query = """
@@ -101,8 +95,7 @@ WHERE type = 'winkel'
 """
 winkels = db.execute_query(select_query)
 
-# DIT HEB IK PUUR GEDAAN OMDAT IK GEEN FILTERING VAN QUERY HAD
-# altijd verbinding sluiten met de database als je klaar bent
+# Filtering op basis van query toegevoegd.
 db.close()
 
 # verzamel alle benodigde gegevens in een dictionary
@@ -179,27 +172,18 @@ def prioriteit(a):
     if a["type"] in voorkeuren:
         return 1
     return 2
+
 # deze had ik geen idee hoe het moest. ik vroeeg een SWATCH maar FLIP werkte beter.
 def kies_attracties():
-    v = bezoeker["verblijfsduur"]
-
     # tijd die al vastligt (worst case), dus die mag niet aan attracties opgaan
     # dit zijn de bufferzones ook eigenlijk. die wordt toegevoegd.
     # math eigenlijk maar telkens de helft en defaults
     reserve = sum(h["geschatte_wachttijd"] + h["doorlooptijd"] + 15 for h in gekozen_horeca)
     reserve += gekozen_winkel["geschatte_wachttijd"] + gekozen_winkel["doorlooptijd"]
+    over = verblijfsduur - reserve
     # moest veel editen want hij ging overschotten
     # slechste case. beetje point system.
     # nooit over tijd. 5 minuten lopen. 
-    over = v - reserve
-
-    for a in attracties:
-        if not mag_attractie(a):
-            print("AFGEWEZEN:", a["naam"], "| type:", a["type"],
-                "| actief:", a["actief"],
-                "| lengte:", a["attractie_min_lengte"], "-", a["attractie_max_lengte"],
-                "| min leeftijd:", a["attractie_min_leeftijd"],
-                "| max gewicht:", a["attractie_max_gewicht"])
 
     geschikt = [a for a in attracties if mag_attractie(a)]
     random.shuffle(geschikt)
@@ -216,7 +200,6 @@ def kies_attracties():
         if duur <= over:
             gekozen.append(a)
             over -= duur
-            print(len(geschikt), "geschikt | tijd over:", over)
     return gekozen
 # RATTR function
 
@@ -224,6 +207,7 @@ def kies_attracties():
 
 # geneer
 def genereer():
+    print("genereren...")
     programma = []
 
     # dobbellen
@@ -250,18 +234,10 @@ def genereer():
 
     # horeca zoeken bij voorkeur
     # verwijderd0 omdat ik nu systeem voor gekozen winkel onder lagere drempel doe.
-    #dit is puur om een random te pakken.
+    # dit is puur om een random te pakken.
     # FORCEFALLBACK
     # random
     
-
-    # # einde souvenierwinkel
-    # if winkels:
-    #     gekozen_winkel = random.choice(winkels)
-    # else:
-    #     gekozen_winkel = None
-    #     # forcefallback
-    # # jeyy HET WEKREKRTKITNO
 
     # horeca positie is eidne
     # horeca gelijkmatig verdelen (FR10 + FR11)
@@ -324,10 +300,9 @@ def genereer():
         "type": "winkel",
         "voorziening": gekozen_winkel
     }) #new dit wil ik doen puur omdat je dannieuwere horeca posities gebruikt.
-
     # laa
     dagprogramma["voorzieningen"] = programma
-    print(programma)
+    print("Klaar.")
 
 attr_potje = kies_attracties()
 genereer()
@@ -360,9 +335,6 @@ with open(f'dagprogramma_bezoeker_{bezoeker["id"]}.json', 'w') as json_bestand_u
 # extreem fijn edit want ik begrijp precies elk block en kon leren 
 # hoe dingen ging reageren.
 # chatgpt zei dat ook paar calculation blockken niet werkte
-
-#pip install openmeteo-requests
-# pip install requests-cache retry-requests numpy pandas
 
 # ik heb alle fr die moeten.
 # FR4 , 6 , 10 , 13 en 14
