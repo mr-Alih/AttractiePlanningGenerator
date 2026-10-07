@@ -18,24 +18,24 @@
             "Snoep",
             "IJs"
         ],
-        "rekening_houden_met_weer": "goed weer"
+        "rekening_houden_met_weer": false
     },
     "weergegevens": {
-        "temperatuur": "16.89",
+        "temperatuur": "18.49",
         "kans_op_regen": "goed weer"
     },
     "voorzieningen": [
         {
-            "id": 12,
-            "naam": "Mountain Climb",
+            "id": 40,
+            "naam": "Looping Dragon",
             "type": "attractie",
             "overdekt": 0,
-            "geschatte_wachttijd": 50,
-            "doorlooptijd": 7,
+            "geschatte_wachttijd": 40,
+            "doorlooptijd": 6,
             "actief": 1,
-            "attractie_min_lengte": 125,
+            "attractie_min_lengte": 135,
             "attractie_max_lengte": null,
-            "attractie_min_leeftijd": 12,
+            "attractie_min_leeftijd": 11,
             "attractie_max_gewicht": 105,
             "productaanbod": null
         },
@@ -72,38 +72,6 @@
             "productaanbod": null
         },
         {
-            "id": 32,
-            "naam": "Ice Cream Parlor",
-            "type": "horeca",
-            "overdekt": 1,
-            "geschatte_wachttijd": 6,
-            "doorlooptijd": 10,
-            "actief": 1,
-            "attractie_min_lengte": null,
-            "attractie_max_lengte": null,
-            "attractie_min_leeftijd": null,
-            "attractie_max_gewicht": null,
-            "productaanbod": "IJs"
-        },
-        {
-            "type": "eetpauze",
-            "duur": 15
-        },
-        {
-            "id": 40,
-            "naam": "Looping Dragon",
-            "type": "attractie",
-            "overdekt": 0,
-            "geschatte_wachttijd": 40,
-            "doorlooptijd": 6,
-            "actief": 1,
-            "attractie_min_lengte": 135,
-            "attractie_max_lengte": null,
-            "attractie_min_leeftijd": 11,
-            "attractie_max_gewicht": 105,
-            "productaanbod": null
-        },
-        {
             "id": 31,
             "naam": "Fries Joint",
             "type": "horeca",
@@ -116,6 +84,38 @@
             "attractie_min_leeftijd": null,
             "attractie_max_gewicht": null,
             "productaanbod": "Patat"
+        },
+        {
+            "type": "eetpauze",
+            "duur": 15
+        },
+        {
+            "id": 12,
+            "naam": "Mountain Climb",
+            "type": "attractie",
+            "overdekt": 0,
+            "geschatte_wachttijd": 50,
+            "doorlooptijd": 7,
+            "actief": 1,
+            "attractie_min_lengte": 125,
+            "attractie_max_lengte": null,
+            "attractie_min_leeftijd": 12,
+            "attractie_max_gewicht": 105,
+            "productaanbod": null
+        },
+        {
+            "id": 32,
+            "naam": "Ice Cream Parlor",
+            "type": "horeca",
+            "overdekt": 1,
+            "geschatte_wachttijd": 6,
+            "doorlooptijd": 10,
+            "actief": 1,
+            "attractie_min_lengte": null,
+            "attractie_max_lengte": null,
+            "attractie_min_leeftijd": null,
+            "attractie_max_gewicht": null,
+            "productaanbod": "IJs"
         },
         {
             "type": "eetpauze",
@@ -168,12 +168,12 @@
             "productaanbod": null
         },
         {
-            "id": 50,
-            "naam": "Gift Shop",
+            "id": 51,
+            "naam": "Book Store",
             "type": "winkel",
             "overdekt": 1,
             "geschatte_wachttijd": 5,
-            "doorlooptijd": 10,
+            "doorlooptijd": 12,
             "actief": 1,
             "attractie_min_lengte": null,
             "attractie_max_lengte": null,
@@ -182,5 +182,5 @@
             "productaanbod": "Souvenirs"
         }
     ],
-    "totale_duur": 408
+    "totale_duur": 419
 }

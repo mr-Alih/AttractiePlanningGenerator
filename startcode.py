@@ -116,7 +116,7 @@ dagprogramma = {
         "voorkeuren_attractietypes": bezoeker['voorkeuren_attractietypes'].split(','),
         "lievelingsattracties": bezoeker['lievelingsattracties'].split(','),
         "voorkeuren_eten": bezoeker['voorkeuren_eten'].split(','),
-        "rekening_houden_met_weer": hetweer
+        "rekening_houden_met_weer": (hetweer != "goed weer")
     },
     "weergegevens": {
         "temperatuur": f"{temperatuur:.2f}", #2 decimalen opsturen!
@@ -186,12 +186,20 @@ def kies_attracties():
     # tijd die al vastligt (worst case), dus die mag niet aan attracties opgaan
     # dit zijn de bufferzones ook eigenlijk. die wordt toegevoegd.
     # math eigenlijk maar telkens de helft en defaults
-    reserve = sum(h["geschatte_wachttijd"] + h["doorlooptijd"] + 15 + 5 for h in gekozen_horeca)
-    reserve += gekozen_winkel["geschatte_wachttijd"] + gekozen_winkel["doorlooptijd"] + 5
+    reserve = sum(h["geschatte_wachttijd"] + h["doorlooptijd"] + 15 for h in gekozen_horeca)
+    reserve += gekozen_winkel["geschatte_wachttijd"] + gekozen_winkel["doorlooptijd"]
     # moest veel editen want hij ging overschotten
     # slechste case. beetje point system.
     # nooit over tijd. 5 minuten lopen. 
     over = v - reserve
+
+    for a in attracties:
+        if not mag_attractie(a):
+            print("AFGEWEZEN:", a["naam"], "| type:", a["type"],
+                "| actief:", a["actief"],
+                "| lengte:", a["attractie_min_lengte"], "-", a["attractie_max_lengte"],
+                "| min leeftijd:", a["attractie_min_leeftijd"],
+                "| max gewicht:", a["attractie_max_gewicht"])
 
     geschikt = [a for a in attracties if mag_attractie(a)]
     random.shuffle(geschikt)
@@ -208,6 +216,7 @@ def kies_attracties():
         if duur <= over:
             gekozen.append(a)
             over -= duur
+            print(len(geschikt), "geschikt | tijd over:", over)
     return gekozen
 # RATTR function
 
@@ -282,7 +291,7 @@ def genereer():
 
         # Maximaal 5 minuten lopen
         if i < len(attractie_programma) - 1:
-            looptijd = random.randint(0, 3) #er stond opdracht gemid 2.5 minuten
+            looptijd = random.randint(0, 5) #er stond opdracht gemid 2.5 minuten (hop)
 
             programma.append({
                 "type": "lopen",
